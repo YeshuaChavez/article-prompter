@@ -1,7 +1,14 @@
 "use client";
 import React, { useState } from "react";
+import { FaMicroscope } from "react-icons/fa";
+import { RiClaudeFill  } from "react-icons/ri";
+import { VscCopilot } from "react-icons/vsc";
+import { TbBrandOpenai } from "react-icons/tb";
+import { MdAutoAwesome } from "react-icons/md";
 import { REVISIONES, COLORES } from "../shared/constants";
+import { BsPerplexity } from "react-icons/bs";
 import type { PromptCard } from "../shared/types";
+import { MdContentCopy, MdCheckCircle } from "react-icons/md";
 
 interface PromptOutputProps {
     prompts: PromptCard[];
@@ -20,7 +27,7 @@ const AI_LINKS = [
         bg: "#003087",
         desc: "Busca artículos con citas verificadas",
         badge: "★ Recomendado",
-        icon: "🔬",
+        icon:  <FaMicroscope size={13}/>,
         featured: true,
     },
     {
@@ -29,7 +36,7 @@ const AI_LINKS = [
         color: "#10a37f",
         bg: "#10a37f",
         desc: "OpenAI",
-        icon: "💬",
+        icon: <TbBrandOpenai size={12} />,
         featured: false,
     },
     {
@@ -38,7 +45,7 @@ const AI_LINKS = [
         color: "#C9A84C",
         bg: "#C9A84C",
         desc: "Anthropic",
-        icon: "✦",
+        icon: <RiClaudeFill  size={12} />, 
         featured: false,
     },
     {
@@ -47,7 +54,7 @@ const AI_LINKS = [
         color: "#4285F4",
         bg: "#4285F4",
         desc: "Google",
-        icon: "✦",
+        icon: <MdAutoAwesome size={12} />, 
         featured: false,
     },
     {
@@ -56,7 +63,7 @@ const AI_LINKS = [
         color: "#20b2aa",
         bg: "#20b2aa",
         desc: "Perplexity AI",
-        icon: "🔍",
+        icon: <BsPerplexity  size={12} />, 
         featured: false,
     },
     {
@@ -65,7 +72,7 @@ const AI_LINKS = [
         color: "#0078d4",
         bg: "#0078d4",
         desc: "Microsoft",
-        icon: "⊞",
+        icon: <VscCopilot size={12} />,
         featured: false,
     },
 ];
@@ -155,7 +162,7 @@ function AILinksBar({ promptColor }: { promptColor: string }) {
                             transform: hovered === ai.name ? "translateY(-1px)" : "translateY(0)",
                         }}
                     >
-                        <span style={{ fontSize: 12 }}>{ai.icon}</span>
+                        {ai.icon}
                         {ai.name}
                     </a>
                 ))}
@@ -305,19 +312,22 @@ export default function PromptOutput({
                                         {p.texto}
                                     </pre>
 
-                                    {/* Botón copiar */}
                                     <button
                                         onClick={() => handleCopiar(p.id, p.texto)}
                                         style={{
+                                            display: "inline-flex", alignItems: "center", gap: 7,
                                             padding: "9px 20px", borderRadius: 8,
                                             border: "none",
                                             background: copiados[p.id] ? "#38a169" : p.color,
                                             color: "#fff", fontSize: 13, fontWeight: 600,
                                             cursor: "pointer", fontFamily: "inherit",
-                                            transition: "background 0.2s",
+                                            transition: "background 0.2s", lineHeight: 1,
                                         }}
                                     >
-                                        {copiados[p.id] ? "✓ Copiado al portapapeles" : "📋 Copiar prompt"}
+                                        {copiados[p.id]
+                                            ? <><MdCheckCircle size={16} style={{ display: "block" }} /> Copiado al portapapeles</>
+                                            : <><MdContentCopy size={16} style={{ display: "block" }} /> Copiar prompt</>
+                                        }
                                     </button>
 
                                     {/* ── Links de IAs ── */}

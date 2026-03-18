@@ -44,8 +44,16 @@ export const REVISIONES: RevisionTipo[] = [
 
 // ─── DATOS DE SELECTORES ──────────────────────────────────────────────────
 export const FACULTADES = [
-    "Letras", "Medicina", "Ingeniería de Sistemas", "Derecho",
-    "Economía", "Psicología", "Arquitectura", "Ciencias",
+    // Ciencias de la Salud 
+    "Medicina Humana", "Odontología", "Farmacia y Bioquímica", "Medicina Veterinaria", "Psicología",
+    // Ciencias Básicas
+    "Ciencias Biológicas", "Ciencias Físicas", "Ciencias Matemáticas", "Química e Ingeniería Química",
+    // Ingenierías
+    "Ingeniería de Sistemas e Informática", "Ingeniería Electrónica y Eléctrica", "Ingeniería Geológica, Minera, Metalúrgica y Geográfica", "Ingeniería Industrial", "Ingeniería Química",
+    // Ciencias Económicas y de Gestión
+    "Ciencias Administrativas", "Ciencias Contables", "Ciencias Económicas",
+    // Humanidades y Ciencias Jurídicas y Sociales
+    "Letras y Ciencias Humanas", "Derecho y Ciencia Política", "Ciencias Sociales", "Educación",
 ];
 
 export const ROLES = [
@@ -61,7 +69,7 @@ export const CITAS = [
     "APA 7.ª edición", "Vancouver", "Chicago", "MLA", "Harvard", "IEEE",
 ];
 
-export const IDIOMAS = ["Español", "Inglés", "Portugués", "Francés"];
+export const IDIOMAS = ["Español", "Inglés", "Portugués", "Francés", "Alemán", "Italiano", "Chino (Mandarín)", "Japonés", "Árabe", "Ruso"];
 
 export const EXTENSIONES = [
     "Corto (3.000–5.000 palabras)",
@@ -74,8 +82,8 @@ export const REVISTAS = [
 ];
 
 export const SECCIONES_POR_TIPO: Record<string, string[]> = {
-    teorica: ["Resumen", "Introducción", "Marco Teórico", "Metodología", "Resultados", "Discusión", "Conclusiones", "Referencias"],
-    sistematica: ["Resumen Estructurado", "Introducción", "Criterios de Inclusión", "Estrategia de Búsqueda", "Síntesis", "Conclusiones"],
+    teorica: ["Resumen", "Introducción", "Metodología de Búsqueda", "Desarrollo Temático", "Discusión", "Conclusiones", "Referencias"],
+    sistematica: ["Resumen Estructurado", "Introducción", "Criterios de Inclusión", "Estrategia de Búsqueda", "Síntesis", "Conclusiones", "Referencias"],
     empirica: ["Resumen", "Introducción", "Hipótesis", "Metodología", "Resultados", "Análisis Estadístico", "Discusión", "Conclusiones"],
-    caso: ["Resumen", "Introducción", "Contexto del Caso", "Análisis", "Hallazgos", "Lecciones Aprendidas", "Conclusiones"],
+    caso: ["Resumen", "Introducción", "Marco Teórico", "Contexto del Caso", "Análisis", "Hallazgos", "Lecciones Aprendidas", "Conclusiones", "Referencias"],
 };

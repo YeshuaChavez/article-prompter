@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { MdMenuBook } from "react-icons/md";
 
 // ── Colores institucionales ───────────────────────────────────────────────────
 const PRIMARY_GOLD = "#C9A84C";
@@ -99,6 +100,7 @@ export function TopHeader({ onGuide }: HeaderProps) {
                     {/* Botón Guía */}
                     {onGuide && (
                         <button onClick={onGuide} style={{
+                            display: "flex", alignItems: "center", gap: 7,
                             padding: "7px 14px", borderRadius: 8,
                             border: "1px solid rgba(255,255,255,0.2)",
                             background: "rgba(255,255,255,0.08)", color: "#fff",
@@ -113,7 +115,8 @@ export function TopHeader({ onGuide }: HeaderProps) {
                                 e.currentTarget.style.background = "rgba(255,255,255,0.08)";
                                 e.currentTarget.style.borderColor = "rgba(255,255,255,0.2)";
                             }}>
-                            📚 Guía de uso
+                            <MdMenuBook size={15} />
+                            Guía de uso
                         </button>
                     )}
 
