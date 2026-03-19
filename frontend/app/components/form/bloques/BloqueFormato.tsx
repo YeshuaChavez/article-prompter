@@ -4,6 +4,7 @@ import Bloque from "../../ui/Bloque";
 import Campo from "../../ui/Campo";
 import { COLORES, CITAS, REVISTAS, IDIOMAS, EXTENSIONES, inp, grid2 } from "../../shared/constants";
 import type { FormData } from "../../shared/types";
+import { MdDeleteOutline } from "react-icons/md";
 
 interface Props {
     form: FormData;
@@ -13,7 +14,15 @@ interface Props {
 const sel: React.CSSProperties = { ...inp, cursor: "pointer" };
 const ta: React.CSSProperties = { ...inp, resize: "vertical", minHeight: 80 };
 
+const CAMPOS_FORMATO: (keyof FormData)[] = ["extension", "citacion", "idioma", "revista", "restricciones"];
+
 export default function BloqueFormato({ form, onUpdate }: Props) {
+    const tieneDatos = CAMPOS_FORMATO.some(k => form[k] !== "");
+
+    const limpiarBloque = () => {
+        CAMPOS_FORMATO.forEach(k => onUpdate(k, ""));
+    };
+
     return (
         <Bloque titulo="3. Formato y Estilo" color={COLORES.dorado}>
             <div style={grid2}>
@@ -49,6 +58,35 @@ export default function BloqueFormato({ form, onUpdate }: Props) {
                         style={ta} />
                 </Campo>
             </div>
+
+            {tieneDatos && (
+                <div style={{ marginTop: 14, display: "flex", justifyContent: "center" }}>
+                    <button
+                        onClick={limpiarBloque}
+                        style={{
+                            display: "inline-flex", alignItems: "center", gap: 6,
+                            padding: "6px 16px", borderRadius: 8,
+                            border: "1.5px solid #e53e3e33",
+                            background: "transparent",
+                            color: "#e53e3e", fontSize: 11, fontWeight: 700,
+                            cursor: "pointer", fontFamily: "inherit",
+                            letterSpacing: 0.8, textTransform: "uppercase",
+                            transition: "all 0.15s",
+                        }}
+                        onMouseEnter={e => {
+                            e.currentTarget.style.background = "#e53e3e10";
+                            e.currentTarget.style.borderColor = "#e53e3e66";
+                        }}
+                        onMouseLeave={e => {
+                            e.currentTarget.style.background = "transparent";
+                            e.currentTarget.style.borderColor = "#e53e3e33";
+                        }}
+                    >
+                        <MdDeleteOutline size={14} style={{ display: "block" }} />
+                        Limpiar este bloque
+                    </button>
+                </div>
+            )}
         </Bloque>
     );
 }

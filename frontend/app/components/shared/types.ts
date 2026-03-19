@@ -15,6 +15,10 @@ export interface FormData {
     idioma: string;
     docente: string;
     restricciones: string;
+    periodo: string;
+    exclusion: string;
+    muestra: string;
+    evidencia: string;
 }
 
 export interface PromptCard {
@@ -28,7 +32,7 @@ export interface PromptCard {
 export interface RevisionTipo {
     id: string;
     label: string;
-    icon: LucideIcon;   // ← antes era string, ahora es componente Lucide
+    icon: LucideIcon;
     color: string;
     desc: string;
 }
