@@ -11,15 +11,31 @@ import { buildPrompts } from "../../lib/buildPrompts";
 import type { FormData, PromptCard } from "../shared/types";
 
 const FORM_INICIAL: FormData = {
-    nombre: "", rol: "", facultad: "", nivel: "",
-    tema: "", objetivo: "", hipotesis: "", keywords: "",
-    extension: "", citacion: "", revista: "", idioma: "",
-    docente: "", restricciones: "", periodo: "", exclusion: "",muestra: "",evidencia: ""
+    // Datos del autor
+    nombre: "" , facultad: "", nivel: "", docente: "",
+    // Formato y estilo
+    extension: "", citacion: "", revista: "", idioma: "", restricciones: "",
+    // Revisión Teórica
+    temaT: "", objetivoT: "", corrientes: "", autores: "", periodo: "",
+    // Revisión Sistemática
+    temaS: "", objetivoS: "", preguntaPico: "", criteriosInc: "", basesDatos: "", criteriosExc: "",
+    // Investigación Empírica
+    temaE: "", objetivoE: "", hipotesis: "", disenio: "", muestra: "", instrumento: "",
+    // Estudio de Caso
+    temaC: "", objetivoC: "", preguntaCaso: "", unidadAnalisis: "", evidencia: "",
 };
+
+// Campos específicos que se limpian al cambiar de tipo
+const CAMPOS_ESPECIFICOS: (keyof FormData)[] = [
+    "temaT", "objetivoT", "corrientes", "autores", "periodo",
+    "temaS", "objetivoS", "preguntaPico", "criteriosInc", "basesDatos", "criteriosExc",
+    "temaE", "objetivoE", "hipotesis", "disenio", "muestra", "instrumento",
+    "temaC", "objetivoC", "preguntaCaso", "unidadAnalisis", "evidencia",
+];
 
 const GUIDE_STEPS = [
     { num: "01", title: "Tipo de artículo", desc: "Selecciona en el panel lateral el tipo de investigación que vas a redactar.", detail: "Teórica · Sistemática · Empírica · Estudio de caso", color: "#003087" },
-    { num: "02", title: "Datos del autor", desc: "Ingresa tu nombre, facultad, nivel académico y el nombre de tu asesor.", detail: "Nombre · Rol · Facultad · Nivel · Docente", color: "#C8102E" },
+    { num: "02", title: "Datos del autor", desc: "Ingresa tu nombre, facultad, nivel académico y el nombre de tu asesor.", detail: "Nombre · Facultad · Nivel · Docente", color: "#C8102E" },
     { num: "03", title: "Contenido del artículo", desc: "Define el tema, objetivo e hipótesis. Cada tipo tiene campos específicos.", detail: "Tema · Objetivo · Hipótesis · Keywords", color: "#C9A84C" },
     { num: "04", title: "Formato y estilo", desc: "Configura la extensión, norma de citación, idioma y revista objetivo.", detail: "APA · Vancouver · Scopus · Español · Inglés", color: "#27ae60" },
     { num: "05", title: "Secciones del documento", desc: "Elige qué secciones incluirá tu artículo. Si no seleccionas, se usan todas.", detail: "Resumen · Introducción · Metodología · Conclusiones", color: "#8e44ad" },
@@ -121,6 +137,13 @@ export default function PromptGenerator() {
         setSecciones([]);
         setTab("form");
         setPrompts([]);
+        // Limpiar campos específicos del tipo anterior
+        // Los datos del autor y formato se mantienen
+        setForm(prev => {
+            const limpio = { ...prev };
+            CAMPOS_ESPECIFICOS.forEach(k => { (limpio as Record<string, string>)[k] = ""; });
+            return limpio;
+        });
     };
 
     const handleGenerar = () => {

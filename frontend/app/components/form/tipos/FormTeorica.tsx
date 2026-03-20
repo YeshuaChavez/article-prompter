@@ -13,7 +13,7 @@ interface Props {
 
 const COLOR = "#e67e22";
 const ta: React.CSSProperties = { ...inp, resize: "vertical", minHeight: 80 };
-const CAMPOS: (keyof FormData)[] = ["tema", "objetivo", "hipotesis", "keywords", "periodo"];
+const CAMPOS: (keyof FormData)[] = ["temaT", "objetivoT", "corrientes", "autores", "periodo"];
 
 export default function FormTeorica({ form, onUpdate }: Props) {
     const tieneDatos = CAMPOS.some(k => form[k] !== "");
@@ -23,25 +23,25 @@ export default function FormTeorica({ form, onUpdate }: Props) {
         <Bloque titulo="2. Contenido de la Revisión Teórica" color={COLOR}>
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
                 <Campo label="Tema o campo teórico a revisar" required>
-                    <textarea value={form.tema} onChange={e => onUpdate("tema", e.target.value)}
+                    <textarea value={form.temaT} onChange={e => onUpdate("temaT", e.target.value)}
                         rows={2} placeholder="Ej: Teorías del aprendizaje constructivista en educación superior..."
                         style={ta} />
                 </Campo>
                 <div style={grid2}>
                     <Campo label="Objetivo de la revisión" required>
-                        <textarea value={form.objetivo} onChange={e => onUpdate("objetivo", e.target.value)}
+                        <textarea value={form.objetivoT} onChange={e => onUpdate("objetivoT", e.target.value)}
                             rows={2} placeholder="Ej: Analizar las principales corrientes teóricas sobre..."
                             style={ta} />
                     </Campo>
                     <Campo label="Corrientes o enfoques teóricos a cubrir">
-                        <textarea value={form.hipotesis} onChange={e => onUpdate("hipotesis", e.target.value)}
+                        <textarea value={form.corrientes} onChange={e => onUpdate("corrientes", e.target.value)}
                             rows={2} placeholder="Ej: Constructivismo, cognitivismo, conductismo..."
                             style={ta} />
                     </Campo>
                 </div>
                 <div style={grid2}>
                     <Campo label="Autores o teóricos clave">
-                        <input value={form.keywords} onChange={e => onUpdate("keywords", e.target.value)}
+                        <input value={form.autores} onChange={e => onUpdate("autores", e.target.value)}
                             placeholder="Ej: Vygotsky, Piaget, Ausubel, Bruner" style={inp} />
                     </Campo>
                     <Campo label="Período temporal a cubrir">
@@ -50,7 +50,6 @@ export default function FormTeorica({ form, onUpdate }: Props) {
                     </Campo>
                 </div>
             </div>
-
             {tieneDatos && (
                 <div style={{ marginTop: 14, display: "flex", justifyContent: "center" }}>
                     <button onClick={limpiar} style={{

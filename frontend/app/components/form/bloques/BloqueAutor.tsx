@@ -2,7 +2,7 @@
 import React from "react";
 import Bloque from "../../ui/Bloque";
 import Campo from "../../ui/Campo";
-import { COLORES, FACULTADES, NIVELES, ROLES, inp, grid2 } from "../../shared/constants";
+import { COLORES, FACULTADES, NIVELES, inp, grid2 } from "../../shared/constants";
 import type { FormData } from "../../shared/types";
 import { MdDeleteOutline } from "react-icons/md";
 
@@ -14,7 +14,7 @@ interface Props {
 const sel: React.CSSProperties = { ...inp, cursor: "pointer" };
 
 // Campos que pertenecen a este bloque
-const CAMPOS_AUTOR: (keyof FormData)[] = ["nombre", "rol", "facultad", "nivel", "docente"];
+const CAMPOS_AUTOR: (keyof FormData)[] = ["nombre", "facultad", "nivel", "docente"];
 
 export default function BloqueAutor({ form, onUpdate }: Props) {
     // ¿Hay algún campo con contenido?
@@ -30,12 +30,6 @@ export default function BloqueAutor({ form, onUpdate }: Props) {
                 <Campo label="Nombre completo">
                     <input value={form.nombre} onChange={e => onUpdate("nombre", e.target.value)}
                         placeholder="Ej: María García López" style={inp} />
-                </Campo>
-                <Campo label="Rol">
-                    <select value={form.rol} onChange={e => onUpdate("rol", e.target.value)} style={sel}>
-                        <option value="">— Seleccionar —</option>
-                        {ROLES.map(r => <option key={r}>{r}</option>)}
-                    </select>
                 </Campo>
                 <Campo label="Facultad">
                     <select value={form.facultad} onChange={e => onUpdate("facultad", e.target.value)} style={sel}>

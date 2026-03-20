@@ -2,125 +2,179 @@ import type { FormData } from "../../components/shared/types";
 
 export const PROMPTS_TEORICA: Record<string, (form: FormData) => string> = {
 
-    "Resumen": (form) => `Actúa como redactor académico experto en revisiones teóricas indexadas en ${form.revista || "Scopus"}.
+    "Reformula tu tema": (form) => `Actúa como un experto en investigación con 20 años de experiencia para realizar lo siguiente:
 
-Redacta el Resumen (Abstract) del siguiente artículo de revisión teórica:
+1. VARIABLES IDENTIFICADAS: Del tema [${form.temaT || "tema no especificado"}] identifica las categorías conceptuales principales:
+   - Concepto Central (CC): La idea o teoría principal que se analiza
+   - Conceptos Relacionados (CR): Teorías o enfoques que interactúan con el concepto central
+   - Variables Contextuales (VC): Factores del contexto que condicionan el análisis teórico
 
-TEMA: "${form.tema || "[tema no especificado]"}"
-OBJETIVO: "${form.objetivo || "[objetivo no definido]"}"
-AUTOR: ${form.nombre || "el autor"} — Facultad de ${form.facultad || "[facultad]"}, nivel ${form.nivel || "pregrado"}
+2. DEFINICIÓN CONCEPTUAL: Para cada categoría identificada, defínela conceptualmente y busca un artículo científico indexado que contenga esa definición. Cita en formato ${form.citacion || "APA 7.ª edición"}.
 
-El resumen debe:
-1. Presentar el propósito y alcance de la revisión en 1–2 oraciones.
-2. Describir brevemente el enfoque teórico y las corrientes analizadas.
-3. Mencionar los principales hallazgos o aportes conceptuales.
-4. Cerrar con la relevancia o contribución al campo.
+3. NUEVAS VARIANTES DEL TEMA: Formula 3 nuevas variantes del tema [${form.temaT || "tema no especificado"}] claramente definidas, especificando a quién beneficiará y el aporte teórico. Por cada variante formula una pregunta de investigación teórica clara y contestable.
 
-Extensión: 150–250 palabras. Idioma: ${form.idioma || "Español"}. Norma: ${form.citacion || "APA 7.ª edición"}.
-${form.restricciones ? `\nConsideraciones adicionales: ${form.restricciones}` : ""}`,
+Corrientes a cubrir: "${form.corrientes || "[no especificadas]"}"
+Autores clave: ${form.autores || "[no especificados]"}
+Autor: ${form.nombre || "el autor"} — Facultad de ${form.facultad || "[facultad]"}, nivel ${form.nivel || "pregrado"}
+Presenta toda la información en ${form.idioma || "Español"}.`,
 
-    "Introducción": (form) => `Actúa como redactor académico especializado en artículos de revisión teórica para la Facultad de ${form.facultad || "[facultad]"}.
+    "Vacíos temáticos": (form) => `Actúa como un investigador experto en revisión de literatura teórica de la Facultad de ${form.facultad || "[facultad]"}.
 
-Redacta la Introducción del siguiente artículo:
+Realiza una revisión exhaustiva de la literatura científica actual del tema [${form.temaT || "tema no especificado"}].
 
-TEMA: "${form.tema || "[tema no especificado]"}"
-OBJETIVO: "${form.objetivo || "[objetivo no definido]"}"
-CORRIENTES O ENFOQUES: "${form.hipotesis || "[no especificadas]"}"
-AUTORES CLAVE: ${form.keywords || "[no especificados]"}
+Identifica y analiza 5 vacíos temáticos significativos:
+- Usa artículos de revistas indexadas (${form.revista || "Scopus, WoS, Redalyc"}) para fundamentar cada vacío.
+- Por cada vacío escribe 2 párrafos e incluye 2 citas en formato ${form.citacion || "APA 7.ª edición"}.
+- Presenta lista enumerada. Información clara y correctamente referenciada.
 
-La introducción debe:
-1. Contextualizar el campo teórico y su relevancia actual.
-2. Identificar el vacío o debate no resuelto en la literatura.
-3. Justificar la necesidad de esta revisión teórica.
-4. Declarar el objetivo de forma clara y precisa.
-5. Anunciar la estructura del artículo.
+Corrientes analizadas: "${form.corrientes || "[no especificadas]"}"
+Período: ${form.periodo || "últimos 10 años"}
+Presenta todo en ${form.idioma || "Español"}.`,
 
-Extensión: 400–600 palabras. Idioma: ${form.idioma || "Español"}. Norma: ${form.citacion || "APA 7.ª edición"}.`,
+    "Formula el objetivo": (form) => `Actúa como experto en metodología de investigación de la Facultad de ${form.facultad || "[facultad]"}.
 
-    "Metodología de Búsqueda": (form) => `Actúa como bibliotecólogo e investigador especializado en revisiones de literatura académica.
+Del texto anterior elige el vacío más relevante y formula 3 objetivos para una Revisión Teórica.
 
-Redacta la sección de Metodología de Búsqueda para una revisión teórica sobre:
+Los objetivos deben:
+- Iniciar con verbos en infinitivo
+- Ser específicos, medibles y relevantes para el vacío
+- Responder al tipo: Artículo de Revisión Teórica
 
-TEMA: "${form.tema || "[tema no especificado]"}"
-PERÍODO TEMPORAL: "${form.restricciones || "últimos 10 años"}"
-AUTORES O TEÓRICOS CLAVE: ${form.keywords || "[no especificados]"}
-BASES DE DATOS OBJETIVO: ${form.revista || "Scopus, WoS, Redalyc"}
+Por cada objetivo presenta:
+1. El objetivo formulado
+2. Cómo aborda el vacío seleccionado
+3. El método que se aplicará (análisis documental, hermenéutico, etc.)
 
-La sección debe incluir:
-1. Criterios de selección de fuentes (inclusión y exclusión).
-2. Palabras clave y ecuaciones de búsqueda utilizadas.
-3. Bases de datos y repositorios consultados.
-4. Período temporal cubierto y justificación.
-5. Número aproximado de fuentes revisadas y seleccionadas.
+Tema base: [${form.temaT || "tema no especificado"}]
+Objetivo declarado: "${form.objetivoT || "[objetivo no definido]"}"
+Presenta en ${form.idioma || "Español"}.`,
 
-Idioma: ${form.idioma || "Español"}. Norma: ${form.citacion || "APA 7.ª edición"}.`,
+    "Valida el objetivo": (form) => `Actúa como par evaluador de la revista ${form.revista || "Scopus Q1"} especializada en ${form.facultad || "ciencias"}.
 
-    "Desarrollo Temático": (form) => `Actúa como experto en ${form.facultad || "ciencias"} con amplio dominio de la literatura teórica sobre el tema.
+Del objetivo [${form.objetivoT || "objetivo no definido"}] dame feedback aplicando estos criterios:
 
-Desarrolla el cuerpo teórico del artículo de revisión sobre:
+1. CLARIDAD EN LA FORMULACIÓN: ¿Proporciona comprensión clara de lo que pretende lograr?
+2. RELEVANCIA Y PERTINENCIA: ¿Es relevante para ${form.facultad || "[facultad]"}?
+3. ESPECÍFICO Y MEDIBLE: ¿Ofrece un camino claro para medir su logro?
+4. FACTIBILIDAD: ¿Es realista con los recursos disponibles?
+5. ORIGINALIDAD E INNOVACIÓN: ¿Aporta algo nuevo al debate teórico?
+6. CONSISTENCIA METODOLÓGICA: ¿Está alineado con una Revisión Teórica?
+7. CLARIDAD EN TÉRMINOS: ¿Usa términos definidos sin ambigüedades?
 
-TEMA: "${form.tema || "[tema no especificado]"}"
-CORRIENTES A CUBRIR: "${form.hipotesis || "[no especificadas]"}"
-AUTORES CLAVE: ${form.keywords || "[no especificados]"}
-NIVEL DEL LECTOR: ${form.nivel || "pregrado"} — Facultad de ${form.facultad || "[facultad]"}
+Sé riguroso y constructivo. Presenta en ${form.idioma || "Español"}.`,
 
-El desarrollo temático debe:
-1. Organizar las corrientes o enfoques teóricos de forma lógica y progresiva.
-2. Comparar y contrastar las posiciones de los principales autores.
-3. Identificar puntos de convergencia y divergencia entre teorías.
-4. Analizar la evolución histórica del concepto o campo.
-5. Señalar los aportes originales de cada corriente al tema.
+    "Esquema de redacción": (form) => `Actúa como editor senior de la revista ${form.revista || "Scopus Q1"}.
 
-Extensión: proporcional al total de ${form.extension || "5.000–8.000 palabras"}. Idioma: ${form.idioma || "Español"}. Norma: ${form.citacion || "APA 7.ª edición"}.`,
+Del objetivo [${form.objetivoT || "objetivo no definido"}] escribe el esquema para una Revisión Teórica:
 
-    "Discusión": (form) => `Actúa como par evaluador senior de una revista ${form.revista || "Scopus Q1"} especializada en ${form.facultad || "ciencias"}.
+1. RESUMEN (máx. 200 palabras)
+2. INTRODUCCIÓN: Contexto teórico, debates, vacíos, objetivo
+3. METODOLOGÍA DE BÚSQUEDA: Criterios, bases de datos, período
+4. DESARROLLO TEMÁTICO: Organizado por corrientes/enfoques
+5. DISCUSIÓN: Comparación, implicaciones, limitaciones
+6. CONCLUSIONES: Aportes conceptuales, futuras líneas
+7. REFERENCIAS: Según ${form.citacion || "APA 7.ª edición"}
 
-Redacta la sección de Discusión para la revisión teórica sobre:
+Para cada apartado: propósito, extensión aproximada, elementos clave y errores comunes.
+Extensión total: ${form.extension || "Estándar (5.000–8.000 palabras)"}. Todo en ${form.idioma || "Español"}.`,
 
-TEMA: "${form.tema || "[tema no especificado]"}"
-OBJETIVO: "${form.objetivo || "[objetivo no definido]"}"
-CORRIENTES ANALIZADAS: "${form.hipotesis || "[no especificadas]"}"
+    "Metodología de Búsqueda": (form) => `Actúa como experto en metodología de revisión de literatura de la Facultad de ${form.facultad || "[facultad]"}.
 
-La discusión debe:
-1. Interpretar los hallazgos teóricos más relevantes.
-2. Confrontar las corrientes analizadas con el estado actual del campo.
-3. Señalar las tensiones o debates irresueltos identificados.
-4. Evaluar las implicaciones prácticas o epistemológicas de la revisión.
-5. Reconocer las limitaciones del enfoque adoptado.
+Elabora la Metodología de Búsqueda para la revisión sobre:
+TEMA: "${form.temaT || "[tema no especificado]"}"
+PERÍODO: "${form.periodo || "últimos 10 años"}"
+AUTORES CLAVE: ${form.autores || "[no especificados]"}
+
+Desarrolla:
+1. CRITERIOS DE SELECCIÓN: Inclusión y exclusión (período ${form.periodo || "2015-2025"}, tipo de fuente).
+2. PALABRAS CLAVE Y ECUACIONES: Con operadores booleanos para Scopus, WoS, Redalyc, Google Scholar.
+3. BASES DE DATOS: Con justificación de pertinencia.
+4. PROCESO DE SELECCIÓN: Flujo desde búsqueda hasta selección final.
+5. VOLUMEN DE FUENTES: Revisadas vs. seleccionadas con justificación.
+
+Norma: ${form.citacion || "APA 7.ª edición"}. Todo en ${form.idioma || "Español"}.`,
+
+    "Desarrollo Temático": (form) => `Actúa como experto con dominio del campo teórico de la Facultad de ${form.facultad || "[facultad]"}.
+
+Elabora el Desarrollo Temático sobre:
+TEMA: "${form.temaT || "[tema no especificado]"}"
+CORRIENTES: "${form.corrientes || "[no especificadas]"}"
+AUTORES CLAVE: ${form.autores || "[no especificados]"}
+
+Sigue estas instrucciones:
+1. EVOLUCIÓN HISTÓRICA: Desarrollo cronológico mostrando cómo cada corriente construye sobre las anteriores.
+2. ANÁLISIS COMPARATIVO: Compara posiciones de ${form.autores || "los autores principales"}. Identifica convergencias y divergencias.
+3. ESTADO ACTUAL: Debates vigentes y tensiones irresueltas.
+4. NUEVAS PERSPECTIVAS: 3 enfoques renovados que emergen del análisis.
+
+Extensión: proporcional a ${form.extension || "5.000–8.000 palabras"}. Norma: ${form.citacion || "APA 7.ª edición"}. Idioma: ${form.idioma || "Español"}.`,
+
+    "Discusión": (form) => `Actúa como par evaluador senior de la revista ${form.revista || "Scopus Q1"}.
+
+Elabora la Discusión para la revisión teórica sobre:
+TEMA: "${form.temaT || "[tema no especificado]"}"
+OBJETIVO: "${form.objetivoT || "[objetivo no definido]"}"
+CORRIENTES: "${form.corrientes || "[no especificadas]"}"
+
+Sigue estas instrucciones:
+1. COMPARACIÓN: Por cada hallazgo conceptual, compara con estudios indexados. Formato ${form.citacion || "APA 7.ª edición"}.
+2. IMPLICACIONES TEÓRICAS: ¿Qué aporta al campo? ¿Desafía supuestos existentes?
+3. LIMITACIONES: Alcance y restricciones metodológicas.
+4. RECOMENDACIONES: Líneas futuras de investigación teórica.
 
 Extensión: 400–700 palabras. Idioma: ${form.idioma || "Español"}. Norma: ${form.citacion || "APA 7.ª edición"}.`,
 
     "Conclusiones": (form) => `Actúa como metodólogo experto en revisiones teóricas de la Facultad de ${form.facultad || "[facultad]"}.
 
-Redacta las Conclusiones de la revisión teórica sobre:
+Elabora las Conclusiones sobre:
+TEMA: "${form.temaT || "[tema no especificado]"}"
+OBJETIVO: "${form.objetivoT || "[objetivo no definido]"}"
+CORRIENTES: "${form.corrientes || "[no especificadas]"}"
 
-TEMA: "${form.tema || "[tema no especificado]"}"
-OBJETIVO ALCANZADO: "${form.objetivo || "[objetivo no definido]"}"
-CORRIENTES REVISADAS: "${form.hipotesis || "[no especificadas]"}"
-
-Las conclusiones deben:
-1. Sintetizar los aportes teóricos más significativos identificados.
-2. Responder directamente al objetivo declarado.
-3. Declarar la contribución conceptual original de esta revisión.
-4. Señalar las limitaciones del estudio.
-5. Proponer líneas de investigación teórica futura.
-${form.restricciones ? `6. Consideraciones adicionales: ${form.restricciones}` : ""}
+Pautas:
+1. RESULTADOS CLAVE: Aportes conceptuales más significativos.
+2. RESPUESTA AL OBJETIVO: Responde directamente a: "${form.objetivoT || "[objetivo]"}"
+3. TIPO DE ESTUDIO: Contextualiza dentro de una Revisión Teórica.
+4. REFLEXIONES FINALES: Implicaciones y líneas emergentes.
+${form.restricciones ? `\n5. CONSIDERACIONES: ${form.restricciones}` : ""}
 
 Extensión: 300–500 palabras. Idioma: ${form.idioma || "Español"}. Norma: ${form.citacion || "APA 7.ª edición"}.`,
 
-    "Referencias": (form) => `Actúa como especialista en gestión bibliográfica y normas de citación académica.
+    "Resumen": (form) => `Actúa como experto en revisiones teóricas con experiencia en ${form.revista || "Scopus"}.
 
-Genera una guía de referencias modelo para la revisión teórica sobre:
+Elabora el Resumen (máx. 200 palabras) en un párrafo fluido:
+- Contexto: relevancia de "${form.temaT || "[tema]"}"
+- Objetivo: "${form.objetivoT || "[objetivo]"}"
+- Corrientes analizadas: "${form.corrientes || "[corrientes]"}"
+- Hallazgos conceptuales más relevantes
+- Contribución al campo
 
-TEMA: "${form.tema || "[tema no especificado]"}"
-AUTORES CLAVE: ${form.keywords || "[no especificados]"}
-NORMA DE CITACIÓN: ${form.citacion || "APA 7.ª edición"}
-IDIOMA: ${form.idioma || "Español"}
+Autor: ${form.nombre || "el autor"} — Facultad de ${form.facultad || "[facultad]"}, nivel ${form.nivel || "pregrado"}
+Norma: ${form.citacion || "APA 7.ª edición"}. Idioma: ${form.idioma || "Español"}. Máximo 200 palabras.`,
 
-Por favor:
-1. Genera 8–10 referencias modelo siguiendo estrictamente la norma ${form.citacion || "APA 7.ª edición"}.
-2. Incluye una variedad de tipos: artículo de revista, libro, capítulo de libro, tesis, recurso web.
-3. Prioriza fuentes de los últimos 10 años relacionadas con "${form.tema || "el tema"}".
-4. Señala errores comunes al citar en ${form.citacion || "APA 7.ª edición"}.
-5. Recomienda gestores bibliográficos (Zotero, Mendeley) y su configuración para esta norma.`,
+    "Palabras clave": (form) => `Actúa como especialista en indexación y SEO académico.
+
+Formula 5 palabras clave para la Revisión Teórica sobre:
+TEMA: "${form.temaT || "[tema no especificado]"}"
+OBJETIVO: "${form.objetivoT || "[objetivo no definido]"}"
+CORRIENTES: "${form.corrientes || "[no especificadas]"}"
+
+Para cada palabra clave:
+1. Término en ${form.idioma || "Español"} y equivalente en inglés
+2. Justificación para indexación en ${form.revista || "Scopus"}
+3. Descriptores relacionados en Redalyc o ERIC
+
+Presenta todo en ${form.idioma || "Español"}.`,
+
+    "Títulos propuestos": (form) => `Actúa como editor senior de la revista ${form.revista || "Scopus Q1"}.
+
+Para el objetivo [${form.objetivoT || "objetivo no definido"}] formula 5 títulos para la Revisión Teórica.
+
+Cada título debe:
+- Reflejar el enfoque teórico-conceptual
+- Incluir las corrientes o categorías principales
+- Ser conciso (máx. 20 palabras)
+- Ser atractivo para revisores de ${form.revista || "Scopus"}
+
+Presenta todo en ${form.idioma || "Español"}.`,
 };

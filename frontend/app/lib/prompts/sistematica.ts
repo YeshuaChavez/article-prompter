@@ -2,123 +2,206 @@ import type { FormData } from "../../components/shared/types";
 
 export const PROMPTS_SISTEMATICA: Record<string, (form: FormData) => string> = {
 
-    "Resumen Estructurado": (form) => `Actúa como redactor experto en revisiones sistemáticas con experiencia en publicación en revistas ${form.revista || "Scopus Q1"}.
+    "Reformula tu tema": (form) => `Actúa como un experto en investigación con 20 años de experiencia para realizar lo siguiente:
 
-Redacta el Resumen Estructurado (structured abstract) para la revisión sistemática sobre:
+1. VARIABLES IDENTIFICADAS: Del tema [${form.temaS || "tema no especificado"}] identifica:
+   - Variable Independiente (VI): Factor que influye o determina. Ejemplo: horas de estudio.
+   - Variable Dependiente (VD): El resultado que se mide. Ejemplo: puntuación en un examen.
+   - Variable Interviniente/Control (VIC): Factores que afectan la relación VI-VD.
 
-PREGUNTA DE INVESTIGACIÓN: "${form.tema || "[pregunta no especificada]"}"
-OBJETIVO: "${form.objetivo || "[objetivo no definido]"}"
-AUTOR: ${form.nombre || "el autor"} — Facultad de ${form.facultad || "[facultad]"}, nivel ${form.nivel || "pregrado"}
+2. DEFINICIÓN CONCEPTUAL: Para cada variable, defínela y busca un artículo científico indexado. Cita en formato ${form.citacion || "APA 7.ª edición"}.
 
-El resumen estructurado debe incluir estas secciones etiquetadas:
-- ANTECEDENTES: contexto y justificación
-- OBJETIVO: propósito de la revisión
-- MÉTODOS: bases de datos, criterios, período
-- RESULTADOS: número de estudios incluidos y hallazgos clave
-- CONCLUSIONES: implicaciones principales
+3. NUEVAS VARIANTES: Formula 3 variantes del tema [${form.temaS || "tema no especificado"}] en formato PICO o SPIDER, especificando a quién beneficiará. Por cada variante formula una pregunta de investigación clara y contestable.
 
-Extensión total: 250–300 palabras. Idioma: ${form.idioma || "Español"}. Norma: ${form.citacion || "APA 7.ª edición"}.`,
+Pregunta PICO/SPIDER: "${form.preguntaPico || "[no especificada]"}"
+Bases de datos: ${form.basesDatos || "Scopus, WoS, PubMed, Cochrane"}
+Autor: ${form.nombre || "el autor"} — Facultad de ${form.facultad || "[facultad]"}, nivel ${form.nivel || "pregrado"}
+Presenta toda la información en ${form.idioma || "Español"}.`,
 
-    "Introducción": (form) => `Actúa como investigador experto en revisiones sistemáticas y medicina basada en evidencia para la Facultad de ${form.facultad || "[facultad]"}.
+    "Vacíos temáticos": (form) => `Actúa como investigador experto en revisiones sistemáticas de la Facultad de ${form.facultad || "[facultad]"}.
 
-Redacta la Introducción de la revisión sistemática sobre:
+Realiza una revisión exhaustiva de la literatura sobre [${form.temaS || "tema no especificado"}].
 
-PREGUNTA PICO/SPIDER: "${form.tema || "[pregunta no especificada]"}"
-OBJETIVO: "${form.objetivo || "[objetivo no definido]"}"
-CRITERIOS DE INCLUSIÓN: "${form.hipotesis || "[no especificados]"}"
+Identifica y analiza 5 vacíos temáticos:
+- Usa artículos de revistas indexadas (${form.revista || "Scopus, WoS, PubMed"}) para fundamentar cada vacío.
+- Por cada vacío escribe 2 párrafos e incluye 2 citas en formato ${form.citacion || "APA 7.ª edición"}.
+- Presenta lista enumerada. Información clara y correctamente referenciada.
 
-La introducción debe:
-1. Contextualizar el problema clínico, social o científico abordado.
-2. Justificar la necesidad de una revisión sistemática (vs. narrativa).
-3. Presentar la pregunta en formato PICO o SPIDER.
-4. Declarar el objetivo de la revisión.
-5. Mencionar brevemente el protocolo seguido (PRISMA, PROSPERO).
+Bases de datos: ${form.basesDatos || "Scopus, WoS, PubMed, Cochrane"}
+Período: últimos 10 años
+Presenta todo en ${form.idioma || "Español"}.`,
 
-Extensión: 400–600 palabras. Idioma: ${form.idioma || "Español"}. Norma: ${form.citacion || "APA 7.ª edición"}.`,
+    "Formula el objetivo": (form) => `Actúa como experto en metodología de investigación de la Facultad de ${form.facultad || "[facultad]"}.
 
-    "Criterios de Inclusión": (form) => `Actúa como metodólogo especializado en revisiones sistemáticas con dominio del protocolo PRISMA.
+Del texto anterior elige el vacío más relevante y formula 3 objetivos para una Revisión Sistemática.
 
-Define los Criterios de Inclusión y Exclusión para la revisión sistemática sobre:
+Los objetivos deben:
+- Iniciar con verbos en infinitivo
+- Ser específicos, medibles y relevantes para el vacío
+- Responder al tipo: Revisión Sistemática (PRISMA)
 
-PREGUNTA: "${form.tema || "[pregunta no especificada]"}"
-CRITERIOS DECLARADOS: "${form.hipotesis || "[no especificados]"}"
-BASES DE DATOS: ${form.keywords || "PubMed, Scopus, WoS, Cochrane"}
-PERÍODO: "${form.restricciones || "últimos 10 años"}"
+Por cada objetivo presenta:
+1. El objetivo formulado
+2. Cómo aborda el vacío seleccionado
+3. El método (PRISMA, criterios PICO, etc.)
+
+Tema: [${form.temaS || "tema no especificado"}]
+Objetivo declarado: "${form.objetivoS || "[objetivo no definido]"}"
+Presenta en ${form.idioma || "Español"}.`,
+
+    "Valida el objetivo": (form) => `Actúa como par evaluador de la revista ${form.revista || "Scopus Q1"}.
+
+Del objetivo [${form.objetivoS || "objetivo no definido"}] dame feedback aplicando estos criterios:
+
+1. CLARIDAD: ¿Proporciona comprensión clara de lo que pretende lograr?
+2. RELEVANCIA: ¿Es relevante para ${form.facultad || "[facultad]"}?
+3. ESPECÍFICO Y MEDIBLE: ¿Ofrece camino claro para medir su logro?
+4. FACTIBILIDAD: ¿Es viable con acceso a ${form.basesDatos || "[bases de datos]"}?
+5. ORIGINALIDAD: ¿Aporta algo nuevo al campo?
+6. CONSISTENCIA: ¿Está alineado con metodología PRISMA?
+7. CLARIDAD EN TÉRMINOS: ¿Usa conceptos definidos sin ambigüedades?
+
+Sé riguroso y constructivo. Presenta en ${form.idioma || "Español"}.`,
+
+    "Esquema de redacción": (form) => `Actúa como editor senior de la revista ${form.revista || "Scopus Q1"}.
+
+Del objetivo [${form.objetivoS || "objetivo no definido"}] escribe el esquema para una Revisión Sistemática:
+
+1. RESUMEN ESTRUCTURADO (máx. 250 palabras): Antecedentes, Objetivo, Métodos, Resultados, Conclusiones
+2. INTRODUCCIÓN: Bases teóricas, investigaciones previas, vacíos, objetivo
+3. CRITERIOS DE INCLUSIÓN Y EXCLUSIÓN: Tabla PICO/SPIDER
+4. ESTRATEGIA DE BÚSQUEDA: Ecuaciones, bases de datos, diagrama PRISMA
+5. SÍNTESIS DE RESULTADOS: Por pregunta de investigación
+6. DISCUSIÓN: Comparación, limitaciones, recomendaciones
+7. CONCLUSIONES: Hallazgos clave, respuesta al objetivo, futuras líneas
+8. REFERENCIAS: Según ${form.citacion || "APA 7.ª edición"}
+
+Para cada apartado: propósito, extensión, elementos clave y errores comunes.
+Extensión total: ${form.extension || "Estándar (5.000–8.000 palabras)"}. Todo en ${form.idioma || "Español"}.`,
+
+    "Introducción": (form) => `Actúa como investigador experto en revisiones sistemáticas de la Facultad de ${form.facultad || "[facultad]"}.
+
+Elabora la Introducción para la Revisión Sistemática con objetivo:
+"${form.objetivoS || "[objetivo no definido]"}"
+
+Instrucciones:
+1. BASES TEÓRICAS: 3 fuentes recientes (últimos 5 años). Bases: ${form.basesDatos || "[bases de datos]"}
+2. INVESTIGACIONES PREVIAS: 3 estudios clave de los últimos 5 años.
+3. VACÍOS: 3 fuentes recientes que justifiquen esta revisión.
+4. OBJETIVO: Define claramente respondiendo a los vacíos.
+
+Citas en formato ${form.citacion || "APA 7.ª edición"}. Lenguaje académico en ${form.idioma || "Español"}.`,
+
+    "Criterios de Inclusión": (form) => `Actúa como metodólogo experto en revisiones sistemáticas con dominio del protocolo PRISMA.
+
+Formula los Criterios de Inclusión y Exclusión para:
+PREGUNTA PICO/SPIDER: "${form.preguntaPico || "[no especificada]"}"
+CRITERIOS DE INCLUSIÓN: "${form.criteriosInc || "[no especificados]"}"
+CRITERIOS DE EXCLUSIÓN: "${form.criteriosExc || "[no especificados]"}"
+BASES DE DATOS: ${form.basesDatos || "PubMed, Scopus, WoS, Cochrane"}
 
 Desarrolla:
-1. Tabla de criterios de inclusión detallados (población, intervención, comparador, resultado, diseño).
-2. Tabla de criterios de exclusión con justificación de cada uno.
-3. Tipos de estudio aceptados (RCT, cohorte, caso-control, etc.).
-4. Restricciones de idioma, fecha y acceso.
-5. Proceso de selección: diagrama de flujo PRISMA recomendado.
+1. Tabla de criterios de inclusión (población, intervención, comparador, resultado, diseño)
+2. Tabla de criterios de exclusión con justificación
+3. Tipos de estudio aceptados
+4. Restricciones de idioma (${form.idioma || "Español e Inglés"}) y fecha
+5. Diagrama PRISMA: 4 fases (Identificación, Cribado, Elegibilidad, Inclusión)
 
-Idioma: ${form.idioma || "Español"}. Norma: ${form.citacion || "APA 7.ª edición"}.`,
+Norma: ${form.citacion || "APA 7.ª edición"}. Todo en ${form.idioma || "Español"}.`,
 
-    "Estrategia de Búsqueda": (form) => `Actúa como bibliotecólogo especializado en búsquedas sistemáticas en bases de datos científicas.
+    "Estrategia de Búsqueda": (form) => `Actúa como bibliotecólogo especializado en búsquedas sistemáticas.
 
-Diseña la Estrategia de Búsqueda para la revisión sistemática sobre:
-
-PREGUNTA: "${form.tema || "[pregunta no especificada]"}"
-BASES DE DATOS: ${form.keywords || "PubMed, Scopus, Web of Science, Cochrane, LILACS"}
-PERÍODO: "${form.restricciones || "2015–2025"}"
+Diseña la Estrategia de Búsqueda para:
+PREGUNTA: "${form.preguntaPico || "[pregunta no especificada]"}"
+BASES DE DATOS: ${form.basesDatos || "PubMed, Scopus, WoS, Cochrane, LILACS"}
 IDIOMAS: ${form.idioma || "Español e Inglés"}
 
 Proporciona:
-1. Ecuaciones de búsqueda completas para cada base de datos con operadores booleanos (AND, OR, NOT).
-2. Términos MeSH / DeCS equivalentes al tema.
-3. Estrategia de búsqueda en lenguaje libre para bases no controladas.
-4. Tabla resumen: base de datos → ecuación → resultados esperados.
-5. Recomendaciones para búsqueda en literatura gris (tesis, informes, repositorios).
+1. Ecuaciones de búsqueda con operadores booleanos (AND, OR, NOT) por base de datos
+2. Términos MeSH / DeCS en inglés y español
+3. Estrategia en lenguaje libre para bases sin vocabulario controlado
+4. Tabla: Base de datos → Ecuación → Resultados esperados
+5. Literatura gris: tesis, informes, repositorios
 
 Norma: ${form.citacion || "APA 7.ª edición"}.`,
 
-    "Síntesis": (form) => `Actúa como investigador senior experto en síntesis de evidencia científica y meta-análisis.
+    "Síntesis de Resultados": (form) => `Actúa como investigador senior experto en síntesis de evidencia científica.
 
-Redacta la sección de Síntesis de Resultados para la revisión sistemática sobre:
+Elabora los Resultados para la revisión sistemática sobre:
+OBJETIVO: "${form.objetivoS || "[objetivo no definido]"}"
+PREGUNTA: "${form.preguntaPico || "[no especificada]"}"
 
-PREGUNTA: "${form.tema || "[pregunta no especificada]"}"
-OBJETIVO: "${form.objetivo || "[objetivo no definido]"}"
-FACULTAD: ${form.facultad || "[facultad]"}
+Por cada pregunta de investigación, analiza 3 fuentes originales. Para cada fuente:
+- FUENTE: Cita en formato ${form.citacion || "APA 7.ª edición"}
+- METODOLOGÍA: Diseño del estudio
+- CONCLUSIÓN PRINCIPAL: Hallazgo más relevante
 
-La síntesis debe:
-1. Describir las características de los estudios incluidos (tabla resumen).
-2. Agrupar los hallazgos por categorías temáticas o resultados.
-3. Evaluar la heterogeneidad entre estudios.
-4. Presentar la síntesis narrativa o cuantitativa según corresponda.
-5. Señalar sesgos identificados y nivel de evidencia de cada estudio.
-6. Usar tabla de evidencia GRADE si aplica.
+Fuentes únicas por pregunta, de los últimos 5-10 años.
+Extensión: ${form.extension || "Estándar"}. Todo en ${form.idioma || "Español"}.`,
 
-Extensión: proporcional al total de ${form.extension || "5.000–8.000 palabras"}. Idioma: ${form.idioma || "Español"}. Norma: ${form.citacion || "APA 7.ª edición"}.`,
+    "Discusión": (form) => `Actúa como par evaluador senior de la revista ${form.revista || "Scopus Q1"}.
+
+Elabora la Discusión para la revisión sobre:
+OBJETIVO: "${form.objetivoS || "[objetivo no definido]"}"
+PREGUNTA: "${form.preguntaPico || "[no especificada]"}"
+
+Instrucciones:
+1. COMPARACIÓN: Por resultado principal, compara con estudios indexados. Formato ${form.citacion || "APA 7.ª edición"}.
+2. LIMITACIONES: Metodológicas y su impacto en la interpretación.
+3. FUTURAS INVESTIGACIONES: Áreas específicas basadas en vacíos identificados.
+
+Extensión: 400–700 palabras. Idioma: ${form.idioma || "Español"}. Norma: ${form.citacion || "APA 7.ª edición"}.`,
 
     "Conclusiones": (form) => `Actúa como metodólogo experto en revisiones sistemáticas de la Facultad de ${form.facultad || "[facultad]"}.
 
-Redacta las Conclusiones de la revisión sistemática sobre:
+Elabora las Conclusiones sobre:
+OBJETIVO: "${form.objetivoS || "[objetivo no definido]"}"
+PREGUNTA: "${form.preguntaPico || "[no especificada]"}"
 
-PREGUNTA: "${form.tema || "[pregunta no especificada]"}"
-OBJETIVO ALCANZADO: "${form.objetivo || "[objetivo no definido]"}"
-
-Las conclusiones deben:
-1. Responder directamente a la pregunta PICO/SPIDER planteada.
-2. Resumir la fuerza de la evidencia encontrada.
-3. Señalar implicaciones para la práctica clínica, educativa o política.
-4. Declarar las limitaciones metodológicas de la revisión.
-5. Proponer investigaciones futuras basadas en los vacíos identificados.
-${form.restricciones ? `6. Consideraciones adicionales: ${form.restricciones}` : ""}
+Pautas:
+1. RESULTADOS CLAVE: Hallazgos más importantes.
+2. RESPUESTA AL OBJETIVO: Responde directamente a: "${form.objetivoS || "[objetivo]"}"
+3. MARCO PRISMA: Contextualiza dentro de la metodología PRISMA.
+4. REFLEXIONES FINALES: Implicaciones y líneas futuras.
+${form.restricciones ? `\n5. CONSIDERACIONES: ${form.restricciones}` : ""}
 
 Extensión: 300–500 palabras. Idioma: ${form.idioma || "Español"}. Norma: ${form.citacion || "APA 7.ª edición"}.`,
 
-    "Referencias": (form) => `Actúa como especialista en gestión bibliográfica y normas de citación académica.
+    "Resumen Estructurado": (form) => `Actúa como experto en revisiones sistemáticas con experiencia en ${form.revista || "Scopus Q1"}.
 
-Genera una guía de referencias modelo para la revisión sistemática sobre:
+Elabora el Resumen Estructurado (máx. 200 palabras) con secciones etiquetadas:
+- ANTECEDENTES: Contexto y justificación
+- OBJETIVO: "${form.objetivoS || "[objetivo no definido]"}"
+- MÉTODOS: Bases (${form.basesDatos || "[bases]"}), criterios inclusión "${form.criteriosInc || "[criterios]"}", exclusión "${form.criteriosExc || "[criterios]"}"
+- RESULTADOS: Estudios incluidos y hallazgos clave
+- CONCLUSIONES: Implicaciones principales
 
-TEMA: "${form.tema || "[tema no especificado]"}"
-BASES DE DATOS: ${form.keywords || "PubMed, Scopus, WoS"}
-NORMA: ${form.citacion || "APA 7.ª edición"}
+Autor: ${form.nombre || "el autor"} — Facultad de ${form.facultad || "[facultad]"}, nivel ${form.nivel || "pregrado"}
+Norma: ${form.citacion || "APA 7.ª edición"}. Idioma: ${form.idioma || "Español"}. Máximo 200 palabras.`,
 
-Por favor:
-1. Genera 8–10 referencias modelo de artículos científicos siguiendo ${form.citacion || "APA 7.ª edición"}.
-2. Incluye ejemplos de: artículo con DOI, artículo sin DOI, revisión sistemática, guía clínica, base de datos.
-3. Muestra cómo citar el protocolo PRISMA y PROSPERO.
-4. Señala errores frecuentes al citar estudios clínicos.
-5. Recomienda gestores bibliográficos y su exportación desde cada base de datos.`,
+    "Palabras clave": (form) => `Actúa como especialista en indexación y SEO académico.
+
+Formula 5 palabras clave para la Revisión Sistemática sobre:
+TEMA: "${form.temaS || "[tema no especificado]"}"
+OBJETIVO: "${form.objetivoS || "[objetivo no definido]"}"
+PREGUNTA: "${form.preguntaPico || "[no especificada]"}"
+
+Para cada palabra clave:
+1. Término en ${form.idioma || "Español"} y equivalente en inglés
+2. Justificación para indexación en ${form.revista || "Scopus"}
+3. Verificación como término MeSH o DeCS
+
+Presenta todo en ${form.idioma || "Español"}.`,
+
+    "Títulos propuestos": (form) => `Actúa como editor senior de la revista ${form.revista || "Scopus Q1"}.
+
+Para el objetivo [${form.objetivoS || "objetivo no definido"}] formula 5 títulos para la Revisión Sistemática.
+
+Cada título debe:
+- Mencionar explícitamente que es una revisión sistemática
+- Incluir las variables principales
+- Ser conciso (máx. 20 palabras)
+- Seguir convenciones de ${form.revista || "Scopus"} y Facultad de ${form.facultad || "[facultad]"}
+
+Presenta todo en ${form.idioma || "Español"}.`,
 };

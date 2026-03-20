@@ -2,152 +2,228 @@ import type { FormData } from "../../components/shared/types";
 
 export const PROMPTS_EMPIRICA: Record<string, (form: FormData) => string> = {
 
-    "Resumen": (form) => `Actúa como redactor académico experto en investigación empírica cuantitativa/cualitativa indexada en ${form.revista || "Scopus"}.
+    "Reformula tu tema": (form) => `Actúa como un experto en investigación con 20 años de experiencia para realizar lo siguiente:
 
-Redacta el Resumen (Abstract) del siguiente artículo empírico:
+1. VARIABLES IDENTIFICADAS: Del tema [${form.temaE || "tema no especificado"}] identifica:
+   - Variable Independiente (VI): Factor que influye o determina. Ejemplo: horas de estudio.
+   - Variable Dependiente (VD): El resultado o efecto que se mide. Ejemplo: puntuación en un examen.
+   - Variable Interviniente/Control (VIC): Factores que afectan la relación VI-VD. Ejemplo: nivel de fatiga.
 
-PROBLEMA: "${form.tema || "[problema no especificado]"}"
-OBJETIVO: "${form.objetivo || "[objetivo no definido]"}"
+2. DEFINICIÓN CONCEPTUAL DE LAS VARIABLES: Para cada variable, defínela conceptualmente y busca un artículo científico indexado. Cita en formato ${form.citacion || "APA 7.ª edición"}.
+
+3. NUEVAS VARIANTES DEL TEMA: Formula 3 nuevas variantes del tema [${form.temaE || "tema no especificado"}], especificando a quién beneficiará. Por cada variante formula una pregunta clara, precisa y contestable.
+
+Diseño metodológico: "${form.disenio || "[no especificado]"}"
+Muestra: "${form.muestra || "[no especificada]"}"
+Autor: ${form.nombre || "el autor"} — Facultad de ${form.facultad || "[facultad]"}, nivel ${form.nivel || "pregrado"}
+Presenta toda la información en ${form.idioma || "Español"}.`,
+
+    "Vacíos temáticos": (form) => `Actúa como un investigador experto en investigación empírica de la Facultad de ${form.facultad || "[facultad]"}.
+
+Realiza una revisión exhaustiva de la evidencia científica actual sobre [${form.temaE || "tema no especificado"}].
+
+Identifica y analiza 5 vacíos empíricos significativos:
+- Utiliza artículos de revistas indexadas (${form.revista || "Scopus, WoS"}) para fundamentar cada vacío.
+- Por cada vacío escribe 2 párrafos e incluye 2 citas en formato ${form.citacion || "APA 7.ª edición"}.
+- Presenta lista enumerada. Información clara y correctamente referenciada.
+
+Hipótesis inicial: "${form.hipotesis || "[no especificada]"}"
+Presenta todo en ${form.idioma || "Español"}.`,
+
+    "Formula el objetivo": (form) => `Actúa como experto en metodología de investigación empírica de la Facultad de ${form.facultad || "[facultad]"}.
+
+Del texto anterior elige el vacío más relevante y formula 3 objetivos para una Investigación Empírica.
+
+Los objetivos deben:
+- Iniciar con verbos en infinitivo
+- Ser específicos, medibles y relevantes para el vacío
+- Responder al tipo: Investigación Empírica (${form.disenio || "[diseño]"})
+
+Por cada objetivo presenta:
+1. El objetivo formulado
+2. Cómo aborda el vacío empírico seleccionado
+3. El método que se aplicará (cuantitativo, cualitativo, mixto)
+
+Tema base: [${form.temaE || "tema no especificado"}]
+Objetivo declarado: "${form.objetivoE || "[objetivo no definido]"}"
+Presenta en ${form.idioma || "Español"}.`,
+
+    "Valida el objetivo": (form) => `Actúa como par evaluador de la revista ${form.revista || "Scopus Q1"} especializada en ${form.facultad || "ciencias"}.
+
+Del objetivo [${form.objetivoE || "objetivo no definido"}] dame feedback aplicando estos criterios:
+
+1. CLARIDAD EN LA FORMULACIÓN: ¿Proporciona comprensión clara de lo que pretende lograr?
+2. RELEVANCIA Y PERTINENCIA: ¿Es relevante para la Facultad de ${form.facultad || "[facultad]"}?
+3. ESPECÍFICO Y MEDIBLE: ¿Las variables están claramente definidas y son medibles?
+4. FACTIBILIDAD: ¿Es viable con la muestra "${form.muestra || "[muestra]"}" y el instrumento "${form.instrumento || "[instrumento]"}"?
+5. ORIGINALIDAD E INNOVACIÓN: ¿Aporta evidencia nueva al campo?
+6. CONSISTENCIA METODOLÓGICA: ¿Está alineado con el diseño ${form.disenio || "[diseño]"}?
+7. CLARIDAD EN TÉRMINOS: ¿Las variables están operacionalmente definidas?
+
+Sé riguroso y constructivo. Presenta en ${form.idioma || "Español"}.`,
+
+    "Esquema de redacción": (form) => `Actúa como editor senior de la revista ${form.revista || "Scopus Q1"}.
+
+Del objetivo [${form.objetivoE || "objetivo no definido"}] escribe el esquema para una Investigación Empírica:
+
+1. RESUMEN (máx. 200 palabras)
+2. INTRODUCCIÓN: Bases teóricas, estudios previos, vacío, objetivo e hipótesis
+3. HIPÓTESIS: H₀ y H₁, variables, definición operacional
+4. METODOLOGÍA: Diseño, muestra, instrumento, procedimiento, análisis
+5. RESULTADOS: Estadística descriptiva e inferencial
+6. DISCUSIÓN: Comparación, implicaciones, limitaciones
+7. CONCLUSIONES: Hallazgos, contraste de hipótesis, futuras líneas
+8. REFERENCIAS: Según ${form.citacion || "APA 7.ª edición"}
+
+Para cada apartado indica propósito, extensión aproximada, elementos clave y errores comunes.
+Extensión total: ${form.extension || "Estándar"}. Todo en ${form.idioma || "Español"}.`,
+
+    "Introducción": (form) => `Actúa como experto en investigación empírica de la Facultad de ${form.facultad || "[facultad]"}.
+
+Elabora la Introducción para el artículo empírico sobre:
+PROBLEMA: "${form.temaE || "[problema no especificado]"}"
+OBJETIVO: "${form.objetivoE || "[objetivo no definido]"}"
 HIPÓTESIS: "${form.hipotesis || "[hipótesis no definida]"}"
-AUTOR: ${form.nombre || "el autor"} — Facultad de ${form.facultad || "[facultad]"}, nivel ${form.nivel || "pregrado"}
 
-El resumen debe incluir:
-1. Contexto y justificación del problema (1–2 oraciones).
-2. Objetivo general del estudio.
-3. Diseño metodológico y muestra en una oración.
-4. Principales resultados con datos concretos.
-5. Conclusión y aporte al campo.
+Sigue estas instrucciones:
+1. BASES TEÓRICAS: 3 fuentes recientes (últimos 5 años) de revistas indexadas.
+2. INVESTIGACIONES PREVIAS: 3 estudios empíricos clave con datos estadísticos relevantes.
+3. VACÍO EMPÍRICO: 3 fuentes que justifiquen la necesidad de este estudio.
+4. OBJETIVO E HIPÓTESIS: Define claramente el objetivo y la hipótesis: "${form.hipotesis || "[hipótesis]"}"
 
-Extensión: 150–250 palabras. Idioma: ${form.idioma || "Español"}. Norma: ${form.citacion || "APA 7.ª edición"}.`,
+Citas en formato ${form.citacion || "APA 7.ª edición"}. Lenguaje académico en ${form.idioma || "Español"}.`,
 
-    "Introducción": (form) => `Actúa como investigador empírico experto de la Facultad de ${form.facultad || "[facultad]"}.
+    "Hipótesis": (form) => `Actúa como experto en metodología de investigación cuantitativa con 20 años de experiencia.
 
-Redacta la Introducción del artículo de investigación empírica sobre:
-
-PROBLEMA: "${form.tema || "[problema no especificado]"}"
-OBJETIVO: "${form.objetivo || "[objetivo no definido]"}"
-HIPÓTESIS: "${form.hipotesis || "[hipótesis no definida]"}"
-KEYWORDS: ${form.keywords || "[no especificados]"}
-
-La introducción debe:
-1. Presentar el problema con evidencia estadística o empírica reciente.
-2. Revisar brevemente los antecedentes más relevantes (últimos 5 años).
-3. Identificar el vacío empírico que justifica este estudio.
-4. Declarar el objetivo general y los objetivos específicos.
-5. Presentar la hipótesis de investigación.
-6. Anunciar la estructura del artículo.
-
-Extensión: 500–800 palabras. Idioma: ${form.idioma || "Español"}. Norma: ${form.citacion || "APA 7.ª edición"}.`,
-
-    "Hipótesis": (form) => `Actúa como metodólogo especializado en diseño de investigación cuantitativa de la Facultad de ${form.facultad || "[facultad]"}.
-
-Formula y desarrolla las hipótesis de investigación para el estudio sobre:
-
-PROBLEMA: "${form.tema || "[problema no especificado]"}"
-OBJETIVO: "${form.objetivo || "[objetivo no definido]"}"
+Formula y valida las hipótesis para el estudio sobre:
+PROBLEMA: "${form.temaE || "[problema no especificado]"}"
 HIPÓTESIS INICIAL: "${form.hipotesis || "[no especificada]"}"
-DISEÑO: ${form.keywords || "[diseño no especificado]"}
+DISEÑO: ${form.disenio || "[no especificado]"}
 
-Por favor:
-1. Formula la hipótesis nula (H₀) y alternativa (H₁) de forma precisa.
-2. Identifica las variables dependientes e independientes.
-3. Define operacionalmente cada variable.
-4. Especifica la dirección esperada de la relación.
-5. Justifica la hipótesis con base en la literatura existente.
-6. Señala qué prueba estadística corresponde para contrastarla.
+Desarrolla:
+1. VARIABLES: VI, VD y VIC con definición conceptual y cita de artículo científico por cada una.
+2. HIPÓTESIS FORMALES:
+   - H₀ (Nula): formulación precisa
+   - H₁ (Alternativa): con dirección esperada y justificación en literatura
+3. PRUEBA ESTADÍSTICA: Especifica la prueba apropiada según el diseño ${form.disenio || "[diseño]"} y justifica.
 
 Idioma: ${form.idioma || "Español"}. Norma: ${form.citacion || "APA 7.ª edición"}.`,
 
-    "Metodología": (form) => `Actúa como experto en diseño metodológico cuantitativo/cualitativo de la Facultad de ${form.facultad || "[facultad]"}.
+    "Metodología": (form) => `Actúa como experto en diseño metodológico de la Facultad de ${form.facultad || "[facultad]"}.
 
-Redacta la sección de Metodología para el estudio empírico sobre:
+Elabora la Metodología para el estudio sobre:
+DISEÑO: "${form.disenio || "[no especificado]"}"
+MUESTRA: "${form.muestra || "[no especificada]"}"
+INSTRUMENTO: "${form.instrumento || "[no especificado]"}"
+OBJETIVO: "${form.objetivoE || "[objetivo no definido]"}"
 
-PROBLEMA: "${form.tema || "[problema no especificado]"}"
-DISEÑO DECLARADO: "${form.keywords || "[no especificado]"}"
-MUESTRA: "${form.restricciones || "[no especificada]"}"
-OBJETIVO: "${form.objetivo || "[objetivo no definido]"}"
-
-La metodología debe detallar:
-1. Tipo y diseño de investigación (con justificación).
-2. Población, muestra y técnica de muestreo.
-3. Instrumentos de recolección de datos (validez y confiabilidad).
-4. Procedimiento de aplicación y recolección.
-5. Plan de análisis de datos.
-6. Consideraciones éticas del estudio.
+Desarrolla:
+1. TIPO Y DISEÑO: Describe y justifica el diseño ${form.disenio || "[diseño]"}.
+2. POBLACIÓN Y MUESTRA: "${form.muestra || "[muestra]"}" — técnica de muestreo, criterios y tamaño justificado.
+3. INSTRUMENTO: "${form.instrumento || "[instrumento]"}" — validez (juicio de expertos) y confiabilidad (Alpha de Cronbach).
+4. PROCEDIMIENTO: Fases de aplicación y control de sesgos.
+5. PLAN DE ANÁLISIS: Software, pruebas estadísticas y nivel de significancia.
+6. ÉTICA: Consentimiento informado y confidencialidad.
 
 Extensión: 600–900 palabras. Idioma: ${form.idioma || "Español"}. Norma: ${form.citacion || "APA 7.ª edición"}.`,
 
-    "Resultados": (form) => `Actúa como estadístico y redactor científico experto en presentación de resultados empíricos.
-
-Redacta la sección de Resultados para el estudio sobre:
-
-TEMA: "${form.tema || "[tema no especificado]"}"
-HIPÓTESIS: "${form.hipotesis || "[hipótesis no definida]"}"
-MUESTRA: "${form.restricciones || "[no especificada]"}"
-FACULTAD: ${form.facultad || "[facultad]"}
-
-La sección de Resultados debe:
-1. Presentar los hallazgos en orden lógico (de general a específico).
-2. Describir las características de la muestra (estadística descriptiva).
-3. Reportar los resultados de cada prueba estadística con valores exactos (p, IC, d).
-4. Indicar si se acepta o rechaza cada hipótesis.
-5. Incluir sugerencias de tablas y figuras con sus títulos.
-6. Mantener objetividad: solo describir, no interpretar.
-
-Idioma: ${form.idioma || "Español"}. Norma: ${form.citacion || "APA 7.ª edición"}.`,
-
-    "Análisis Estadístico": (form) => `Actúa como bioestadístico experto en análisis de datos para investigación en ${form.facultad || "ciencias"}.
+    "Análisis Estadístico": (form) => `Actúa como bioestadístico experto en análisis de datos para ${form.facultad || "ciencias"}.
 
 Diseña el plan de Análisis Estadístico para el estudio sobre:
-
-TEMA: "${form.tema || "[tema no especificado]"}"
 HIPÓTESIS: "${form.hipotesis || "[hipótesis no definida]"}"
-DISEÑO: ${form.keywords || "[no especificado]"}
-MUESTRA: "${form.restricciones || "[no especificada]"}"
+DISEÑO: ${form.disenio || "[no especificado]"}
+MUESTRA: "${form.muestra || "[no especificada]"}"
+INSTRUMENTO: "${form.instrumento || "[no especificado]"}"
 
 El plan debe incluir:
-1. Software estadístico recomendado (SPSS, R, Stata, Python) y justificación.
-2. Pruebas de normalidad y supuestos a verificar.
-3. Estadística descriptiva: medidas a reportar según tipo de variable.
-4. Pruebas inferenciales específicas según el diseño y las hipótesis.
-5. Nivel de significancia y tamaño del efecto a reportar.
-6. Manejo de datos perdidos y valores atípicos.
+1. SOFTWARE: Justifica SPSS, R, Stata o Python según el diseño.
+2. SUPUESTOS: Normalidad (Kolmogorov-Smirnov, Shapiro-Wilk), homogeneidad de varianzas.
+3. ESTADÍSTICA DESCRIPTIVA: Medidas según tipo de variable (nominal, ordinal, continua).
+4. PRUEBAS INFERENCIALES: Pruebas específicas por hipótesis con justificación.
+5. SIGNIFICANCIA Y EFECTO: Alpha, potencia y tamaño del efecto (d de Cohen, eta², r).
+6. DATOS PERDIDOS: Estrategia de manejo (imputación, eliminación, sensibilidad).
 
 Idioma: ${form.idioma || "Español"}. Norma: ${form.citacion || "APA 7.ª edición"}.`,
 
-    "Discusión": (form) => `Actúa como investigador senior con amplia experiencia en publicación de estudios empíricos en ${form.revista || "Scopus"}.
+    "Resultados": (form) => `Actúa como estadístico y redactor científico experto en presentación de resultados empíricos.
 
-Redacta la sección de Discusión para el estudio sobre:
-
-TEMA: "${form.tema || "[tema no especificado]"}"
-OBJETIVO: "${form.objetivo || "[objetivo no definido]"}"
+Elabora el apartado Resultados para el estudio sobre:
+TEMA: "${form.temaE || "[tema no especificado]"}"
 HIPÓTESIS: "${form.hipotesis || "[hipótesis no definida]"}"
-FACULTAD: ${form.facultad || "[facultad]"}
+MUESTRA: "${form.muestra || "[no especificada]"}"
 
-La discusión debe:
-1. Interpretar los resultados más relevantes (sin repetirlos).
-2. Comparar con hallazgos de estudios similares (coincidencias y diferencias).
-3. Explicar resultados inesperados o contradictorios.
-4. Señalar las implicaciones prácticas o teóricas de los hallazgos.
-5. Reconocer las limitaciones del estudio.
+Sigue estas instrucciones:
+1. ESTADÍSTICA DESCRIPTIVA: Características de la muestra con medidas apropiadas por tipo de variable.
+2. CONTRASTE DE HIPÓTESIS: Por cada hipótesis reporta prueba usada, valores exactos (p, IC 95%, tamaño del efecto), decisión e interpretación.
+3. TABLAS Y FIGURAS: Sugiere 2-3 con títulos y notas según ${form.citacion || "APA 7.ª edición"}.
+4. OBJETIVIDAD: Solo describe, no interpreta. La interpretación va en Discusión.
+
+Idioma: ${form.idioma || "Español"}. Norma: ${form.citacion || "APA 7.ª edición"}.`,
+
+    "Discusión": (form) => `Actúa como investigador senior con experiencia en ${form.revista || "Scopus"}.
+
+Elabora la Discusión para el estudio empírico sobre:
+OBJETIVO: "${form.objetivoE || "[objetivo no definido]"}"
+HIPÓTESIS: "${form.hipotesis || "[hipótesis no definida]"}"
+
+Sigue estas instrucciones:
+1. COMPARACIÓN CON ESTUDIOS PREVIOS: Por resultado principal, compara con estudios indexados. Formato ${form.citacion || "APA 7.ª edición"}. Explica convergencias y divergencias.
+2. IMPLICACIONES PRÁCTICAS: Significado para la práctica en ${form.facultad || "[facultad]"}.
+3. LIMITACIONES: Metodológicas (muestra, instrumento, diseño) y su impacto en la generalización.
+4. FUTURAS INVESTIGACIONES: Líneas específicas basadas en resultados y limitaciones.
 
 Extensión: 500–800 palabras. Idioma: ${form.idioma || "Español"}. Norma: ${form.citacion || "APA 7.ª edición"}.`,
 
     "Conclusiones": (form) => `Actúa como metodólogo experto de la Facultad de ${form.facultad || "[facultad]"}.
 
-Redacta las Conclusiones del estudio empírico sobre:
-
-TEMA: "${form.tema || "[tema no especificado]"}"
-OBJETIVO ALCANZADO: "${form.objetivo || "[objetivo no definido]"}"
+Elabora las Conclusiones del estudio empírico sobre:
+OBJETIVO: "${form.objetivoE || "[objetivo no definido]"}"
 HIPÓTESIS: "${form.hipotesis || "[hipótesis no definida]"}"
 
-Las conclusiones deben:
-1. Sintetizar los hallazgos más importantes.
-2. Confirmar o refutar explícitamente la hipótesis planteada.
-3. Declarar la contribución empírica original del estudio.
-4. Señalar las limitaciones y su impacto en la generalización.
-5. Proponer líneas de investigación futura.
-${form.restricciones ? `6. Consideraciones adicionales: ${form.restricciones}` : ""}
+Sigue estas pautas:
+1. RESULTADOS CLAVE: Hallazgos más importantes con datos concretos y significancia estadística.
+2. RESPUESTA AL OBJETIVO: Cómo el estudio responde a: "${form.objetivoE || "[objetivo]"}"
+3. CONTRASTE DE HIPÓTESIS: Confirma o refuta: "${form.hipotesis || "[hipótesis]"}" con base en resultados.
+4. REFLEXIONES FINALES: Implicaciones, limitaciones y líneas de investigación futura.
+${form.restricciones ? `\n5. CONSIDERACIONES: ${form.restricciones}` : ""}
 
 Extensión: 300–500 palabras. Idioma: ${form.idioma || "Español"}. Norma: ${form.citacion || "APA 7.ª edición"}.`,
+
+    "Resumen": (form) => `Actúa como experto en investigación empírica con experiencia en ${form.revista || "Scopus"}.
+
+Elabora el Resumen (máx. 200 palabras) en un solo párrafo fluido:
+- Contexto: relevancia del problema "${form.temaE || "[tema]"}"
+- Objetivo: "${form.objetivoE || "[objetivo]"}"
+- Metodología: diseño "${form.disenio || "[diseño]"}", muestra "${form.muestra || "[muestra]"}", instrumento "${form.instrumento || "[instrumento]"}"
+- Resultados más significativos con datos concretos
+- Conclusión más relevante para el campo
+
+Autor: ${form.nombre || "el autor"} — Facultad de ${form.facultad || "[facultad]"}, nivel ${form.nivel || "pregrado"}
+Norma: ${form.citacion || "APA 7.ª edición"}. Idioma: ${form.idioma || "Español"}. Máximo 200 palabras.`,
+
+    "Palabras clave": (form) => `Actúa como especialista en indexación y SEO académico.
+
+Formula 5 palabras clave para el artículo empírico sobre:
+TEMA: "${form.temaE || "[tema no especificado]"}"
+OBJETIVO: "${form.objetivoE || "[objetivo no definido]"}"
+VARIABLES: VI y VD identificadas
+
+Para cada palabra clave:
+1. Presenta el término en ${form.idioma || "Español"} y equivalente en inglés
+2. Justifica su relevancia para indexación en ${form.revista || "Scopus"}
+3. Verifica si existe como descriptor en bases especializadas
+
+Presenta todo en ${form.idioma || "Español"}.`,
+
+    "Títulos propuestos": (form) => `Actúa como editor senior de la revista ${form.revista || "Scopus Q1"}.
+
+Para el objetivo [${form.objetivoE || "objetivo no definido"}] formula 5 propuestas de títulos para la Investigación Empírica.
+
+Cada título debe:
+- Mencionar las variables principales (VI y VD)
+- Especificar la población o contexto: Facultad de ${form.facultad || "[facultad]"}
+- Ser conciso (máx. 20 palabras)
+- Seguir convenciones de publicación en ${form.revista || "Scopus"}
+
+Presenta todo en ${form.idioma || "Español"}.`,
 };

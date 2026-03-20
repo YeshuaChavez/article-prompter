@@ -13,7 +13,7 @@ interface Props {
 
 const COLOR = "#27ae60";
 const ta: React.CSSProperties = { ...inp, resize: "vertical", minHeight: 80 };
-const CAMPOS: (keyof FormData)[] = ["tema", "objetivo", "hipotesis", "keywords", "muestra"];
+const CAMPOS: (keyof FormData)[] = ["temaE", "objetivoE", "hipotesis", "disenio", "muestra", "instrumento"];
 
 export default function FormEmpirica({ form, onUpdate }: Props) {
     const tieneDatos = CAMPOS.some(k => form[k] !== "");
@@ -23,13 +23,13 @@ export default function FormEmpirica({ form, onUpdate }: Props) {
         <Bloque titulo="2. Diseño de la Investigación Empírica" color={COLOR}>
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
                 <Campo label="Problema de investigación" required>
-                    <textarea value={form.tema} onChange={e => onUpdate("tema", e.target.value)}
+                    <textarea value={form.temaE} onChange={e => onUpdate("temaE", e.target.value)}
                         rows={2} placeholder="Ej: Impacto del uso de TIC en el rendimiento académico de estudiantes universitarios..."
                         style={ta} />
                 </Campo>
                 <div style={grid2}>
                     <Campo label="Objetivo general" required>
-                        <textarea value={form.objetivo} onChange={e => onUpdate("objetivo", e.target.value)}
+                        <textarea value={form.objetivoE} onChange={e => onUpdate("objetivoE", e.target.value)}
                             rows={2} placeholder="Ej: Determinar la relación entre el uso de TIC y el rendimiento académico..."
                             style={ta} />
                     </Campo>
@@ -41,7 +41,7 @@ export default function FormEmpirica({ form, onUpdate }: Props) {
                 </div>
                 <div style={grid2}>
                     <Campo label="Diseño metodológico">
-                        <input value={form.keywords} onChange={e => onUpdate("keywords", e.target.value)}
+                        <input value={form.disenio} onChange={e => onUpdate("disenio", e.target.value)}
                             placeholder="Ej: Cuantitativo, correlacional, corte transversal" style={inp} />
                     </Campo>
                     <Campo label="Población y muestra">
@@ -49,8 +49,12 @@ export default function FormEmpirica({ form, onUpdate }: Props) {
                             placeholder="Ej: 150 estudiantes de pregrado, muestreo aleatorio estratificado" style={inp} />
                     </Campo>
                 </div>
+                <Campo label="Instrumento de recolección de datos">
+                    <input value={form.instrumento} onChange={e => onUpdate("instrumento", e.target.value)}
+                        placeholder="Ej: Encuesta tipo Likert, guía de entrevista semiestructurada, ficha de observación..."
+                        style={inp} />
+                </Campo>
             </div>
-
             {tieneDatos && (
                 <div style={{ marginTop: 14, display: "flex", justifyContent: "center" }}>
                     <button onClick={limpiar} style={{
