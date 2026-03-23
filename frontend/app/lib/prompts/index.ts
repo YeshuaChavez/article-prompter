@@ -5,7 +5,6 @@ import { PROMPTS_SISTEMATICA } from "./sistematica";
 import { PROMPTS_EMPIRICA } from "./empirica";
 import { PROMPTS_CASO } from "./caso";
 
-// Mapa tipo → prompts especializados
 const BUILDERS: Record<string, Record<string, (form: FormData) => string>> = {
     teorica: PROMPTS_TEORICA,
     sistematica: PROMPTS_SISTEMATICA,
@@ -13,7 +12,6 @@ const BUILDERS: Record<string, Record<string, (form: FormData) => string>> = {
     caso: PROMPTS_CASO,
 };
 
-// Colores por sección (compartidos entre tipos)
 const COLORES_SECCION: Record<string, string> = {
     "Resumen": "#0abf8a",
     "Resumen Estructurado": "#0abf8a",
@@ -35,6 +33,17 @@ const COLORES_SECCION: Record<string, string> = {
     "Lecciones Aprendidas": "#16a085",
     "Conclusiones": "#16a085",
     "Referencias": "#718096",
+    // Secciones de preparación
+    "Reformula tu tema": "#003087",
+    "Vacíos temáticos": "#003087",
+    "Formula el objetivo": "#003087",
+    "Valida el objetivo": "#003087",
+    "Esquema de redacción": "#003087",
+    // Secciones adicionales
+    "Síntesis de Resultados": "#16a085",
+    "Palabras clave": "#718096",
+    "Títulos propuestos": "#718096",
+    "Criterios de Exclusión": "#c0392b",
 };
 
 export function buildPrompts(
@@ -45,8 +54,10 @@ export function buildPrompts(
     const builder = BUILDERS[tipo];
     if (!builder) return [];
 
-    // Si no seleccionó secciones, usa todas las del tipo
-    const secc = secciones.length > 0 ? secciones : (SECCIONES_POR_TIPO[tipo] ?? []);
+    // ✅ Aplanar los dos grupos en un array plano
+    const grupos = SECCIONES_POR_TIPO[tipo];
+    const todasLasSecciones = grupos ? [...grupos.preparacion, ...grupos.redaccion] : [];
+    const secc = secciones.length > 0 ? secciones : todasLasSecciones;
 
     return secc.map((seccion, i) => {
         const generarTexto = builder[seccion];
