@@ -55,23 +55,14 @@ export default function FormSistematica({ form, onUpdate }: Props) {
                     </Campo>
                 </div>
             </div>
-            {tieneDatos && (
-                <div style={{ marginTop: 14, display: "flex", justifyContent: "center" }}>
-                    <button onClick={limpiar} style={{
-                        display: "inline-flex", alignItems: "center", gap: 6,
-                        padding: "6px 16px", borderRadius: 8,
-                        border: "1.5px solid #e53e3e33", background: "transparent",
-                        color: "#e53e3e", fontSize: 11, fontWeight: 700,
-                        cursor: "pointer", fontFamily: "inherit",
-                        letterSpacing: 0.8, textTransform: "uppercase", transition: "all 0.15s",
-                    }}
-                        onMouseEnter={e => { e.currentTarget.style.background = "#e53e3e10"; e.currentTarget.style.borderColor = "#e53e3e66"; }}
-                        onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "#e53e3e33"; }}>
-                        <MdDeleteOutline size={14} style={{ display: "block" }} />
-                        Limpiar este bloque
+            <div className={`expandable-container ${tieneDatos ? 'is-expanded' : ''}`}>
+                <div className="expandable-content">
+                    <button type="button" onClick={limpiar} className="btn-limpiar">
+                        <MdDeleteOutline size={18} />
+                        Limpiar sección
                     </button>
                 </div>
-            )}
+            </div>
         </Bloque>
     );
 }

@@ -8,7 +8,7 @@ import { MdMenuBook } from "react-icons/md";
 const PRIMARY_GOLD = "#C9A84C";
 
 interface HeaderProps {
-    onGuide?: () => void;
+    onGuide?: () => void; // Esta prop viene del padre (PromptGenerator)
 }
 
 export function TopHeader({ onGuide }: HeaderProps) {
@@ -57,7 +57,6 @@ export function TopHeader({ onGuide }: HeaderProps) {
                     alignItems: "center", justifyContent: "center", gap: 4,
                     height: "100%", padding: "0 24px",
                 }}>
-                    {/* Pill */}
                     <div style={{
                         display: "inline-flex", alignItems: "center", gap: 6,
                         padding: "3px 14px", borderRadius: 20,
@@ -71,7 +70,6 @@ export function TopHeader({ onGuide }: HeaderProps) {
                         <span style={{ width: 5, height: 5, borderRadius: "50%", background: PRIMARY_GOLD, display: "inline-block" }} />
                     </div>
 
-                    {/* Título dorado */}
                     <span style={{
                         fontFamily: "Times New Roman, serif",
                         fontSize: 30, fontWeight: 900,
@@ -81,7 +79,6 @@ export function TopHeader({ onGuide }: HeaderProps) {
                         Generador de Prompts
                     </span>
 
-                    {/* Subtítulo en blanco */}
                     <span style={{
                         fontSize: 8.5, color: "rgb(255, 255, 255)",
                         letterSpacing: 3.5, textTransform: "uppercase",
@@ -97,9 +94,10 @@ export function TopHeader({ onGuide }: HeaderProps) {
                     display: "flex", alignItems: "center",
                     justifyContent: "flex-end", gap: 16, flexShrink: 0,
                 }}>
-                    {/* Botón Guía */}
-                    {onGuide && (
-                        <button onClick={onGuide} style={{
+                    {/* Botón Guía — Ahora ejecuta la función que viene del padre */}
+                    <button 
+                        onClick={onGuide} 
+                        style={{
                             display: "flex", alignItems: "center", gap: 8,
                             padding: "10px 20px", borderRadius: 9,
                             border: `1.5px solid rgba(255,255,255,0.2)`,
@@ -108,47 +106,33 @@ export function TopHeader({ onGuide }: HeaderProps) {
                             fontFamily: "inherit", transition: "all 0.2s",
                             lineHeight: 1, letterSpacing: 0.3, whiteSpace: "nowrap",
                         }}
-                            onMouseEnter={e => {
-                                e.currentTarget.style.background = `${PRIMARY_GOLD}22`;
-                                e.currentTarget.style.borderColor = PRIMARY_GOLD;
-                                e.currentTarget.style.color = PRIMARY_GOLD;
-                                e.currentTarget.style.boxShadow = `0 4px 14px ${PRIMARY_GOLD}33`;
-                            }}
-                            onMouseLeave={e => {
-                                e.currentTarget.style.background = "rgba(255,255,255,0.07)";
-                                e.currentTarget.style.borderColor = "rgba(255,255,255,0.2)";
-                                e.currentTarget.style.color = "#fff";
-                                e.currentTarget.style.boxShadow = "none";
-                            }}>
-                            <MdMenuBook size={16} style={{ display: "block" }} />
-                            Guía de uso
-                        </button>
-                    )}
-
-                    {/* Logo UNMSM sin cuadro */}
-                    <a href="https://www.unmsm.edu.pe/" target="_blank" rel="noopener noreferrer"
-                        title="Universidad Nacional Mayor de San Marcos"
-                        style={{
-                            display: "flex", alignItems: "center", gap: 10,
-                            textDecoration: "none", flexShrink: 0,
-                            transition: "opacity 0.2s",
+                        onMouseEnter={e => {
+                            e.currentTarget.style.background = `${PRIMARY_GOLD}22`;
+                            e.currentTarget.style.borderColor = PRIMARY_GOLD;
+                            e.currentTarget.style.color = PRIMARY_GOLD;
+                            e.currentTarget.style.boxShadow = `0 4px 14px ${PRIMARY_GOLD}33`;
                         }}
-                        onMouseEnter={e => { e.currentTarget.style.opacity = "0.75"; }}
-                        onMouseLeave={e => { e.currentTarget.style.opacity = "1"; }}>
+                        onMouseLeave={e => {
+                            e.currentTarget.style.background = "rgba(255,255,255,0.07)";
+                            e.currentTarget.style.borderColor = "rgba(255,255,255,0.2)";
+                            e.currentTarget.style.color = "#fff";
+                            e.currentTarget.style.boxShadow = "none";
+                        }}
+                    >
+                        <MdMenuBook size={16} style={{ display: "block" }} />
+                        Guía de uso
+                    </button>
+
+                    <a href="https://www.unmsm.edu.pe/" target="_blank" rel="noopener noreferrer"
+                        style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
                         <Image
                             src="/unmsm-logo-alone.png"
                             alt="UNMSM"
                             width={52}
                             height={52}
                             style={{ objectFit: "contain" }}
-                            priority
                         />
-                        <span style={{
-                            color: "#fff", fontSize: 20, fontWeight: 900,
-                            letterSpacing: 1, fontFamily: "inherit",
-                        }}>
-                            UNMSM
-                        </span>
+                        <span style={{ color: "#fff", fontSize: 20, fontWeight: 900 }}>UNMSM</span>
                     </a>
                 </div>
             </div>

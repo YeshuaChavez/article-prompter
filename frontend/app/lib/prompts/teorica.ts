@@ -1,90 +1,102 @@
 import type { FormData } from "../../components/shared/types";
 
 export const PROMPTS_TEORICA: Record<string, (form: FormData) => string> = {
+"Reformula tu tema": (form) => `Actúa como un experto en investigación y desarrollo de artículos de revisión teórica con 20 años de experiencia para realizar lo siguiente:
 
-    "Reformula tu tema": (form) => `Actúa como un experto en investigación con 20 años de experiencia para realizar lo siguiente:
+1. VALIDACIÓN METODOLÓGICA (NIVEL Y PERÍODO): Analiza el período indicado [${form.periodo || "no especificado"}] en relación al nivel [${form.nivel || "pregrado"}]. 
+   - Si el período es muy extenso para pregrado (ej. >7-10 años), advierte sobre la carga documental y sugiere uno más corto (últimos 5 años). 
+   - Si es para posgrado y el período es muy corto, sugiere ampliarlo para captar la evolución histórica.
 
-1. VARIABLES IDENTIFICADAS: Del tema [${form.temaT || "tema no especificado"}] identifica las categorías conceptuales principales:
-   - Concepto Central (CC): La idea o teoría principal que se analiza
-   - Conceptos Relacionados (CR): Teorías o enfoques que interactúan con el concepto central
-   - Variables Contextuales (VC): Factores del contexto que condicionan el análisis teórico
+2. VARIABLES IDENTIFICADAS: Del tema [${form.temaT || "tema no especificado"}] identifica las categorías conceptuales principales:
+   - Concepto Central (CC): La idea o teoría principal que se analiza.
+   - Conceptos Relacionados (CR): Teorías o enfoques que interactúan con el concepto central.
+   - Variables Contextuales (VC): Factores del contexto que condicionan el análisis teórico.
 
-2. DEFINICIÓN CONCEPTUAL: Para cada categoría identificada, defínela conceptualmente y busca un artículo científico indexado que contenga esa definición. Cita en formato ${form.citacion || "APA 7.ª edición"}.
+3. DEFINICIÓN CONCEPTUAL: Para cada categoría identificada, defínela conceptualmente y busca un artículo científico indexado que contenga esa definición. Cita en formato ${form.citacion || "APA 7.ª edición"}.
 
-3. NUEVAS VARIANTES DEL TEMA: Formula 3 nuevas variantes del tema [${form.temaT || "tema no especificado"}] claramente definidas, especificando a quién beneficiará y el aporte teórico. Por cada variante formula una pregunta de investigación teórica clara y contestable.
+4. NUEVAS VARIANTES DEL TEMA (NO TÍTULOS): Formula 3 nuevas variantes temáticas derivadas de [${form.temaT || "tema no especificado"}]. 
+   - Cada variante debe ser un TEMA DE INVESTIGACIÓN delimitado (no un título final), especificando el objeto de estudio teórico, a quién beneficiará y el aporte al estado del arte. 
+   - Por cada variante formula una pregunta de investigación teórica clara y contestable.
 
 Corrientes a cubrir: "${form.corrientes || "[no especificadas]"}"
 Autores clave: ${form.autores || "[no especificados]"}
-Autor: ${form.nombre || "el autor"} — Facultad de ${form.facultad || "[facultad]"}, nivel ${form.nivel || "pregrado"}
+Autor: ${form.nombre || "el autor"} — Facultad de ${form.facultad || "[facultad]"}, nivel ${form.nivel || "pregrado"}.
 Presenta toda la información en ${form.idioma || "Español"}.
 
-Al terminar, indica cuál de las 3 variantes consideras más sólida y por qué.
+---
+### CONSULTA FINAL AL USUARIO:
+Al terminar tu análisis, indica cuál de las 3 variantes temáticas consideras más sólida y por qué. Luego, solicita al usuario que indique:
+1. Qué variante temática elige (la 1, 2, 3 o una propia).
+2. Si desea ajustar el período de búsqueda (a uno más corto, más largo o mantener el actual) según tu recomendación experta inicial.
 
-INSTRUCCION PARA LA IA: Cuando el usuario responda con su elección (un número o variante propia), responde únicamente con "Excelente elección. Cuando estés listo, pega el siguiente prompt." y no agregues nada más.`,
+INSTRUCCION PARA LA IA: Cuando el usuario responda con su elección de variante y su decisión sobre el período, responde únicamente con "Tema escogido: [completa o corrige la ortografía del tema elegido]. Período de análisis confirmado: [indica el período final]. Excelente elección. Cuando estés listo, pega el siguiente prompt." y no agregues nada más.`,
 
     "Vacíos temáticos": (form) => `Actúa como un investigador experto en revisión de literatura teórica de la Facultad de ${form.facultad || "[facultad]"}.
 
-Continuamos. La variante elegida en el paso anterior será la base de este análisis.
+Continuamos. La variante elegida y el período confirmado en el paso anterior son la base de este análisis. 
 
-Realiza una revisión exhaustiva de la literatura científica actual sobre esa variante.
+IMPORTANTE: Debes basar tu búsqueda estrictamente en el período de años que el usuario confirmó anteriormente.
+
+Realiza una revisión exhaustiva de la literatura científica sobre esa variante:
 
 Identifica y analiza 5 vacíos temáticos significativos:
-- Usa artículos de revistas indexadas (${form.revista || "Scopus, WoS, Redalyc"}) para fundamentar cada vacío.
-- Por cada vacío escribe 2 párrafos e incluye 2 citas en formato ${form.citacion || "APA 7.ª edición"}.
-- Presenta lista enumerada. Información clara y correctamente referenciada.
+- Usa artículos de revistas indexadas (${form.revista || "Scopus, WoS, Redalyc"}) publicados dentro del período confirmado para fundamentar cada vacío.
+- Por cada vacío escribe 2 párrafos de análisis profundo e incluye 2 citas en formato ${form.citacion || "APA 7.ª edición"}.
+- Presenta una lista enumerada con información clara, técnica y correctamente referenciada.
 
 Corrientes analizadas: "${form.corrientes || "[no especificadas]"}"
-Período: ${form.periodo || "últimos 10 años"}
+Nivel del autor: ${form.nivel || "pregrado"} (asegura que la complejidad de los vacíos sea acorde a este nivel).
 Presenta todo en ${form.idioma || "Español"}.
 
-Al terminar, indica cuál vacío consideras más relevante y urgente.
+Al terminar, indica cuál vacío consideras más relevante y urgente para ser abordado en una revisión teórica y por qué.
 
-INSTRUCCION PARA LA IA: Cuando el usuario responda con su elección (un número o vacío propio), responde únicamente con "Perfecto. Cuando estés listo, pega el siguiente prompt." y no agregues nada más.`,
+INSTRUCCIÓN PARA LA IA: Cuando el usuario responda con su elección (un número o vacío propio), responde únicamente con "Vacío temático seleccionado: [menciona y corrige la ortografía del vacío elegido]. Perfecto. Cuando estés listo, pega el siguiente prompt." y no agregues nada más.`,
 
     "Formula el objetivo": (form) => `Actúa como experto en metodología de investigación de la Facultad de ${form.facultad || "[facultad]"}.
 
-Continuamos. El vacío confirmado en el paso anterior es la base de este trabajo.
+Continuamos. La Variante elegida, el vacío temático seleccionado y el período confirmado en los pasos previos son la base innegociable de este trabajo.
 
-Formula 3 objetivos para una Revisión Teórica sobre ese vacío.
+Formula 3 objetivos para una Revisión Teórica que resuelva ese vacío específico.
 
 Los objetivos deben:
-- Iniciar con verbos en infinitivo
-- Ser específicos, medibles y relevantes para el vacío confirmado
-- Responder al tipo: Artículo de Revisión Teórica
+- Iniciar con verbos en infinitivo (Analizar, Contrastar, Sistematizar, etc.).
+- Estar alineados al nivel [${form.nivel || "pregrado"}] y al período de análisis ya establecido.
+- Ser específicos, medibles y diseñados exclusivamente para un Artículo de Revisión Teórica.
 
 Por cada objetivo presenta:
-1. El objetivo formulado
-2. Cómo aborda directamente el vacío confirmado
-3. El método que se aplicará (análisis documental, hermenéutico, etc.)
+1. El OBJETIVO FORMULADO (enfocado en la variante elegida).
+2. JUSTIFICACIÓN: Cómo aborda directamente el vacío confirmado y se limita al período de años pactado.
+3. EL MÉTODO SUGERIDO: (Análisis documental, hermenéutica, análisis de contenido, revisión sistemática narrativa, etc.).
 
-Tema base: [${form.temaT || "tema no especificado"}]
-${form.objetivoT ? `Objetivo orientativo del autor: "${form.objetivoT}"` : ""}
-Presenta en ${form.idioma || "Español"}.
+Base del análisis: Variante seleccionada anteriormente, vacío detectado y período confirmado.
+${form.objetivoT ? `Objetivo orientativo inicial del autor: "${form.objetivoT}"` : ""}
+Presenta todo en ${form.idioma || "Español"}.
 
-Al terminar, indica cuál objetivo es más viable y pertinente.
+Al terminar, indica cuál de los 3 objetivos es más viable y pertinente según el rigor académico esperado para el nivel ${form.nivel || "indicado"}.
 
-INSTRUCCION PARA LA IA: Cuando el usuario responda con su elección (un número u objetivo propio), responde únicamente con "Muy bien. Cuando estés listo, pega el siguiente prompt." y no agregues nada más.`,
+INSTRUCCIÓN PARA LA IA: Cuando el usuario responda con su elección (un número u objetivo propio), responde únicamente con "Objetivo seleccionado: [menciona y corrige la ortografía del objetivo elegido]. Muy bien. Cuando estés listo, pega el siguiente prompt." y no agregues nada más.`,
 
     "Valida el objetivo": (form) => `Actúa como par evaluador de la revista ${form.revista || "Scopus Q1"} especializada en ${form.facultad || "ciencias"}.
 
-Continuamos. Evaluaremos el objetivo elegido en el paso anterior.
+Continuamos. Evaluaremos el objetivo elegido en el paso anterior, verificando su total coherencia con la VARIANTE elegida, el VACÍO detectado y el PERÍODO confirmado previamente.
 
-Aplica estos criterios:
+Aplica estos criterios de evaluación para nivel ${form.nivel || "pregrado"}:
 
-1. CLARIDAD EN LA FORMULACIÓN: ¿Proporciona comprensión clara de lo que pretende lograr?
-2. RELEVANCIA Y PERTINENCIA: ¿Es relevante para ${form.facultad || "[facultad]"}?
-3. ESPECÍFICO Y MEDIBLE: ¿Ofrece un camino claro para medir su logro?
-4. FACTIBILIDAD: ¿Es realista con los recursos disponibles?
-5. ORIGINALIDAD E INNOVACIÓN: ¿Aporta algo nuevo al debate teórico?
-6. CONSISTENCIA METODOLÓGICA: ¿Está alineado con una Revisión Teórica?
-7. CLARIDAD EN TÉRMINOS: ¿Usa términos definidos sin ambigüedades?
+1. CLARIDAD EN LA FORMULACIÓN: ¿El objetivo expresa sin ambigüedad lo que se pretende lograr en la Revisión Teórica?
+2. RELEVANCIA Y PERTINENCIA: ¿Es relevante para la Facultad de ${form.facultad || "[facultad]"} y aborda el vacío identificado?
+3. COHERENCIA TEMPORAL: ¿Es factible cumplir este objetivo dentro del período de años pactado?
+4. ESPECÍFICO Y MEDIBLE: ¿Ofrece un camino claro para evaluar su cumplimiento al finalizar la revisión?
+5. FACTIBILIDAD POR NIVEL: ¿Es realista y adecuado para el nivel académico del autor (${form.nivel || "pregrado"})?
+6. ORIGINALIDAD E INNOVACIÓN: ¿Representa un aporte al debate teórico actual?
+7. CONSISTENCIA METODOLÓGICA: ¿Está alineado con la metodología de revisión documental sugerida?
 
-Sé riguroso y constructivo. Si necesita ajustes, propón una versión mejorada.
-Presenta en ${form.idioma || "Español"}.
+Sé riguroso y constructivo. Si el objetivo es sólido, confírmalo. Si necesita ajustes para ser más preciso o técnico, propón una versión mejorada.
+
+Presenta la evaluación en ${form.idioma || "Español"}.
 
 Al terminar, confirma o presenta el objetivo ajustado.
 
-INSTRUCCION PARA LA IA: Cuando el usuario responda con "listo" o confirme el objetivo, responde únicamente con "Objetivo confirmado. Cuando estés listo, pega el siguiente prompt." y no agregues nada más.`,
+INSTRUCCIÓN PARA LA IA: Cuando el usuario responda con "listo" o confirme el objetivo, responde únicamente con "Objetivo confirmado: [menciona el objetivo validado o ajustado]. Cuando estés listo, pega el siguiente prompt." y no agregues nada más.`,
 
     "Esquema de redacción": (form) => `Actúa como editor senior de la revista ${form.revista || "Scopus Q1"}.
 
@@ -105,9 +117,18 @@ Extensión total: ${form.extension || "Estándar (5.000–8.000 palabras)"}. Tod
 
 Al terminar, presenta el esquema completo y espera confirmación.
 
-INSTRUCCION PARA LA IA: Cuando el usuario responda con "listo" o "continuar", responde un resumen de las elecciones de usuario y con "Esquema aprobado. Cuando estés listo, pega el siguiente prompt." y no agregues nada más.`,
+INSTRUCCIÓN PARA LA IA: Cuando el usuario responda con "listo" o "continuar", debes generar un RESUMEN DETALLADO Y COMPLETO de todo el proyecto. Escribe: 
 
-    "Introduccion": (form) => `Actúa como editor senior de la revista ${form.revista || "Scopus Q1"} especializada en ${form.facultad || "ciencias"}.
+"Esquema aprobado. A continuación, el resumen integral de tu investigación:
+- TEMA ELEGIDO: [Nombre completo de la variante temática elegida]
+- OBJETIVO CONFIRMADO: [Redacción final del objetivo validado]
+- AUTORES RECOMENDADOS: [Lista completa de autores clave, integrando los del usuario y sugerencias nuevas]
+- CORRIENTES CONFIRMADAS: [Corrientes teóricas que se abordarán]
+- PERÍODO DE ANÁLISIS: [Rango de años final confirmado]
+
+Nota: En caso de que algún campo no haya sido especificado claramente por el usuario, el sistema lo ha completado con la recomendación técnica más idónea en función a lo mostrado y el nivel ${form.nivel || "pregrado"}.`,    
+
+"Introduccion": (form) => `Actúa como editor senior de la revista ${form.revista || "Scopus Q1"} especializada en ${form.facultad || "ciencias"}.
 
  CONTINUACIÓN: Redactaremos la Introducción del artículo sobre el esquema aprobado en el paso anterior.
 

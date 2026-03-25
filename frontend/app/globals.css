@@ -49,3 +49,77 @@ select:focus,
 textarea:focus {
   border-color: #003087 !important;
 }
+
+/* Animación de expansión ultra limpia */
+.expandable-container {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.expandable-container.is-expanded {
+  grid-template-rows: 1fr;
+}
+
+.expandable-content {
+  min-height: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0 0px;
+  opacity: 0;
+  transform: scale(0.9) translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.expandable-container.is-expanded .expandable-content {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition-delay: 0.1s;
+}
+
+/* Botón con estilo "Pill" mejorado */
+.btn-limpiar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border-radius: 100px;
+  background: #ffffff;
+  border: 1px solid #e53e3e33;
+  color: #e53e3e;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(229, 62, 62, 0.08);
+  transition: all 0.2s ease;
+}
+
+.btn-limpiar:hover {
+  background: #fff5f5;
+  border-color: #e53e3e;
+  box-shadow: 0 4px 12px rgba(229, 62, 62, 0.15);
+  transform: translateY(-1px);
+}
+
+.btn-limpiar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border-radius: 100px;
+  background: #ffffff;
+  border: 1px solid #e53e3e33;
+  color: #e53e3e;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: inherit; /* ← esto es todo */
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(229, 62, 62, 0.08);
+  transition: all 0.2s ease;
+}
