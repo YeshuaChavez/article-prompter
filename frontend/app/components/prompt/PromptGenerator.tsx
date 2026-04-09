@@ -16,25 +16,33 @@ const FORM_INICIAL: FormData = {
     nombre: "", facultad: "", nivel: "", docente: "",
     // Formato y estilo
     extension: "", citacion: "", revista: "", idioma: "", restricciones: "",
-    // Revisión Teórica
-    temaT: "", objetivoT: "", corrientes: "", autores: "", periodo: "",
-    // Revisión Sistemática
-    temaS: "", objetivoS: "", preguntaPico: "", criteriosInc: "", basesDatos: "", criteriosExc: "",
-    // Investigación Empírica
-    temaE: "", objetivoE: "", hipotesis: "", disenio: "", muestra: "", instrumento: "",
+    // Investigación Original
+    temaI: "", objetivoI: "", hipotesisI: "", tipoI: "", enfoqueI: "", poblacionI: "", instrumentosI: "", vacioI:"", autoresI:"",
+    // Artículo de Revisión
+    temaRev: "", objetivoRev: "", tipoRevision: "", basesDatos: "", periodoRev: "", criteriosRev: "",
+    // Artículo Metodológico
+    temaM: "", objetivoM: "", propuestaM: "", enfoqueM: "", poblacionM: "", validacionM: "",
     // Estudio de Caso
-    temaC: "", objetivoC: "", preguntaCaso: "", unidadAnalisis: "", evidencia: "",
+    temaC: "", objetivoC: "", preguntaCaso: "", unidadAnalisis: "", evidencia: "", tipoEstudioC: "",disenoCaso: "",tecnicasRecoleccion: [], 
+    // Artículo de Reflexión
+    temaRf: "", objetivoRf: "", preguntaRf: "", enfoqueRf: "", autoresRf: "",
 };
 
 const CAMPOS_ESPECIFICOS: (keyof FormData)[] = [
-    "temaT", "objetivoT", "corrientes", "autores", "periodo",
-    "temaS", "objetivoS", "preguntaPico", "criteriosInc", "basesDatos", "criteriosExc",
-    "temaE", "objetivoE", "hipotesis", "disenio", "muestra", "instrumento",
-    "temaC", "objetivoC", "preguntaCaso", "unidadAnalisis", "evidencia",
+    // Investigación Original
+    "temaI", "objetivoI", "hipotesisI", "tipoI", "enfoqueI", "poblacionI", "instrumentosI",
+    // Artículo de Revisión
+    "temaRev", "objetivoRev", "tipoRevision", "basesDatos", "periodoRev", "criteriosRev",
+    // Artículo Metodológico
+    "temaM", "objetivoM", "propuestaM", "enfoqueM", "poblacionM", "validacionM",
+    // Estudio de Caso
+    "temaC", "objetivoC", "preguntaCaso", "unidadAnalisis", "evidencia", "tipoEstudioC",
+    // Artículo de Reflexión
+    "temaRf", "objetivoRf", "preguntaRf", "enfoqueRf", "autoresRf",
 ];
 
 export default function PromptGenerator() {
-    const [tipoActivo, setTipoActivo] = useState("teorica");
+    const [tipoActivo, setTipoActivo] = useState("investigación_original");
     const [secciones, setSecciones] = useState<string[]>([]);
     const [form, setForm] = useState<FormData>(FORM_INICIAL);
     const [prompts, setPrompts] = useState<PromptCard[]>([]);
@@ -56,7 +64,8 @@ export default function PromptGenerator() {
         setPrompts([]);
         setForm(prev => {
             const limpio = { ...prev };
-            CAMPOS_ESPECIFICOS.forEach(k => { (limpio as Record<string, string>)[k] = ""; });
+            CAMPOS_ESPECIFICOS.forEach(k => { (limpio as unknown as Record<string, string>)[k] = ""; });
+            limpio.tecnicasRecoleccion = [];
             return limpio;
         });
     };

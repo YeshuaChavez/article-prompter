@@ -1,15 +1,17 @@
 import type { FormData, PromptCard } from "../../components/shared/types";
 import { SECCIONES_POR_TIPO } from "../../components/shared/constants";
-import { PROMPTS_TEORICA } from "./teorica";
-import { PROMPTS_SISTEMATICA } from "./sistematica";
-import { PROMPTS_EMPIRICA } from "./empirica";
+import { PROMPTS_INVESTIGACION } from "./investigacion";
+import { PROMPTS_METODOLOGICO } from "./metodologico";
+import { PROMPTS_REFLEXION } from "./reflexion";
+import { PROMPTS_REVISION } from "./revision";
 import { PROMPTS_CASO } from "./caso";
 
 const BUILDERS: Record<string, Record<string, (form: FormData) => string>> = {
-    teorica: PROMPTS_TEORICA,
-    sistematica: PROMPTS_SISTEMATICA,
-    empirica: PROMPTS_EMPIRICA,
+    investigación_original: PROMPTS_INVESTIGACION,
+    revisión: PROMPTS_REVISION,
+    metodológico: PROMPTS_METODOLOGICO,
     caso: PROMPTS_CASO,
+    reflexión: PROMPTS_REFLEXION,
 };
 
 const COLORES_SECCION: Record<string, string> = {
@@ -33,13 +35,11 @@ const COLORES_SECCION: Record<string, string> = {
     "Lecciones Aprendidas": "#16a085",
     "Conclusiones": "#16a085",
     "Referencias": "#718096",
-    // Secciones de preparación
     "Reformula tu tema": "#003087",
     "Vacíos temáticos": "#003087",
     "Formula el objetivo": "#003087",
-    "Valida el objetivo": "#003087",
+    "Autores recomendados": "#003087",
     "Esquema de redacción": "#003087",
-    // Secciones adicionales
     "Síntesis de Resultados": "#16a085",
     "Palabras clave": "#718096",
     "Títulos propuestos": "#718096",
@@ -54,7 +54,6 @@ export function buildPrompts(
     const builder = BUILDERS[tipo];
     if (!builder) return [];
 
-    // ✅ Aplanar los dos grupos en un array plano
     const grupos = SECCIONES_POR_TIPO[tipo];
     const todasLasSecciones = grupos ? [...grupos.preparacion, ...grupos.redaccion] : [];
     const secc = secciones.length > 0 ? secciones : todasLasSecciones;

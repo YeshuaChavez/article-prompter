@@ -161,7 +161,7 @@ export default function PromptOutput({ prompts, tipoActivo, facultad, onEditarFo
                                         {p.texto}
                                     </pre>
 
-                                    {/* ✅ Botón copiar con iconos */}
+                                    {/* Botón copiar con iconos */}
                                     <button onClick={() => handleCopiar(p.id, p.texto)}
                                         style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "9px 20px", borderRadius: 8, border: "none", background: copiados[p.id] ? "#38a169" : p.color, color: "#fff", fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "inherit", transition: "background 0.2s", lineHeight: 1 }}>
                                         {copiados[p.id]

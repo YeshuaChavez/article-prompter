@@ -1,6 +1,6 @@
 import type { FormData } from "../../components/shared/types";
 
-export const PROMPTS_TEORICA: Record<string, (form: FormData) => string> = {
+export const PROMPTS_REFLEXION: Record<string, (form: FormData) => string> = {
 "Reformula tu tema": (form) => `Actúa como un experto en investigación y desarrollo de artículos de revisión teórica con 20 años de experiencia para realizar lo siguiente:
 
 1. VALIDACIÓN METODOLÓGICA (NIVEL Y PERÍODO): Analiza el período indicado [${form.periodo || "no especificado"}] en relación al nivel [${form.nivel || "pregrado"}]. 

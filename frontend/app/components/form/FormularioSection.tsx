@@ -8,10 +8,11 @@ import BloqueFormato from "./bloques/BloqueFormato";
 import BloqueSecciones from "./bloques/BloqueSecciones";
 
 // ── Formularios por tipo ──────────────────────────────────────────────────────
-import FormTeorica from "./tipos/FormTeorica";
-import FormSistematica from "./tipos/FormSistematica";
-import FormEmpirica from "./tipos/FormEmpirica";
+import FormInvestigacion from "./tipos/FormInvestigacion";
+import FormRevision from "./tipos/FormRevision";
+import FormMetodologico from "./tipos/FormMetodologico";
 import FormCaso from "./tipos/FormCaso";
+import FormReflexion from "./tipos/FormReflexion";
 
 interface Props {
     tipoActivo: string;
@@ -24,23 +25,25 @@ interface Props {
 
 // ── Config de colores y labels por tipo ───────────────────────────────────────
 const TIPO_CONFIG: Record<string, { color: string; label: string }> = {
-    teorica:    { color: "#e67e22", label: "Revisión Teórica" },
-    sistematica:{ color: "#2980b9", label: "Revisión Sistemática" },
-    empirica:   { color: "#27ae60", label: "Investigación Empírica" },
-    caso:       { color: "#8e44ad", label: "Estudio de Caso" },
+    investigación_original: { color: "#e67e22", label: "Artículo de Investigación Original" },
+    revisión:               { color: "#2980b9", label: "Artículo de Revisión" },
+    metodológico:           { color: "#27ae60", label: "Artículo Metodológico" },
+    caso:                   { color: "#8e44ad", label: "Estudio de Caso" },
+    reflexión:              { color: "#f1c40f", label: "Artículo de Reflexión" },
 };
 
 // ── Mapa tipo → formulario específico ────────────────────────────────────────
 const FORM_POR_TIPO: Record<string, React.ComponentType<{ form: FormData; onUpdate: (key: keyof FormData, value: string) => void }>> = {
-    teorica:     FormTeorica,
-    sistematica: FormSistematica,
-    empirica:    FormEmpirica,
-    caso:        FormCaso,
+    investigación_original: FormInvestigacion,
+    revisión:               FormRevision,
+    metodológico:           FormMetodologico,
+    caso:                   FormCaso,
+    reflexión:              FormReflexion,
 };
 
 export default function FormularioSection({ tipoActivo, form, secciones, onUpdate, onToggleSeccion, onGenerar }: Props) {
     const cfg = TIPO_CONFIG[tipoActivo] ?? { color: "#003087", label: "" };
-    const FormEspecifico = FORM_POR_TIPO[tipoActivo] ?? FormTeorica;
+    const FormEspecifico = FORM_POR_TIPO[tipoActivo] ?? FormInvestigacion;
 
     return (
         <div style={{ padding: "28px 32px 48px", maxWidth: 880, margin: "0 auto" }}>
